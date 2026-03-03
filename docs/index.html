@@ -12,6 +12,7 @@
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
 
+    <!-- Hero Header -->
     <header class="bg-white border-b border-slate-200 sticky top-0 z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div class="md:flex md:items-center md:justify-between">
@@ -28,8 +29,10 @@
         </div>
     </header>
 
+    <!-- Main Content -->
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
 
+        <!-- Week 1 Section -->
         <section class="mb-12">
             <div class="flex items-center gap-3 mb-6">
                 <span class="px-3 py-1 bg-sky-100 text-sky-700 text-sm font-bold rounded-full">Week 1</span>
@@ -38,48 +41,7 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 
-                <a href="epi_calculator.html" class="group block bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:border-sky-300 transition-all duration-200 overflow-hidden">
-                    <div class="h-2 bg-sky-500 group-hover:bg-sky-600 transition-colors"></div>
-                    <div class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="p-2 bg-sky-50 rounded-lg text-sky-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                                </svg>
-                            </div>
-                            <span class="text-xs font-semibold text-slate-400 uppercase">Interactive Tool</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-900 group-hover:text-sky-600 transition-colors">2×2 Epi Calculator</h3>
-                        <p class="mt-2 text-sm text-slate-600">
-                            Plug in your a, b, c, d values to instantly calculate and interpret Relative Risk, Odds Ratios, and Attributable Risk.
-                        </p>
-                        <div class="mt-4 flex items-center text-sm text-sky-600 font-medium">
-                            Launch Calculator <span class="ml-1 group-hover:translate-x-1 transition-transform">→</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="week1_quiz.html" class="group block bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-300 transition-all duration-200 overflow-hidden">
-                    <div class="h-2 bg-emerald-500 group-hover:bg-emerald-600 transition-colors"></div>
-                    <div class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="p-2 bg-emerald-50 rounded-lg text-emerald-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </div>
-                            <span class="text-xs font-semibold text-slate-400 uppercase">Practice Quiz</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">Frequency & Association Quiz</h3>
-                        <p class="mt-2 text-sm text-slate-600">
-                            Test your ability to calculate point prevalence, incidence rates, and choose the correct measure of association.
-                        </p>
-                        <div class="mt-4 flex items-center text-sm text-emerald-600 font-medium">
-                            Start Quiz <span class="ml-1 group-hover:translate-x-1 transition-transform">→</span>
-                        </div>
-                    </div>
-                </a>
-
+                <!-- Resource Card: Handout -->
                 <a href="week1_handout.html" class="group block bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:border-indigo-300 transition-all duration-200 overflow-hidden">
                     <div class="h-2 bg-indigo-500 group-hover:bg-indigo-600 transition-colors"></div>
                     <div class="p-6">
@@ -101,9 +63,54 @@
                     </div>
                 </a>
 
+                <!-- Tool Card: Interactive App -->
+                <a href="epi_calculator.html" class="group block bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:border-sky-300 transition-all duration-200 overflow-hidden">
+                    <div class="h-2 bg-sky-500 group-hover:bg-sky-600 transition-colors"></div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-2 bg-sky-50 rounded-lg text-sky-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <span class="text-xs font-semibold text-slate-400 uppercase">Interactive Tool</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 group-hover:text-sky-600 transition-colors">2×2 Epi Calculator</h3>
+                        <p class="mt-2 text-sm text-slate-600">
+                            Plug in your a, b, c, d values to instantly calculate and interpret Relative Risk, Odds Ratios, and Attributable Risk.
+                        </p>
+                        <div class="mt-4 flex items-center text-sm text-sky-600 font-medium">
+                            Launch Calculator <span class="ml-1 group-hover:translate-x-1 transition-transform">→</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Quiz Card -->
+                <a href="week1_quiz.html" class="group block bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-300 transition-all duration-200 overflow-hidden">
+                    <div class="h-2 bg-emerald-500 group-hover:bg-emerald-600 transition-colors"></div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-2 bg-emerald-50 rounded-lg text-emerald-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <span class="text-xs font-semibold text-slate-400 uppercase">Practice Quiz</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">Frequency & Association Quiz</h3>
+                        <p class="mt-2 text-sm text-slate-600">
+                            Test your ability to calculate point prevalence, incidence rates, and choose the correct measure of association.
+                        </p>
+                        <div class="mt-4 flex items-center text-sm text-emerald-600 font-medium">
+                            Start Quiz <span class="ml-1 group-hover:translate-x-1 transition-transform">→</span>
+                        </div>
+                    </div>
+                </a>
+
             </div>
         </section>
 
+        <!-- Placeholder for Next Week -->
         <section class="opacity-50">
             <div class="flex items-center gap-3 mb-6">
                 <span class="px-3 py-1 bg-slate-200 text-slate-700 text-sm font-bold rounded-full">Week 2</span>
@@ -116,6 +123,7 @@
 
     </main>
 
+    <!-- Footer -->
     <footer class="bg-slate-800 text-slate-400 py-8">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <p class="text-sm">© 2026 HPG 6104 Course Materials</p>
