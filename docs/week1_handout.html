@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 1 Handout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style> 
+        body { font-family: 'Inter', sans-serif; } 
+        @media print {
+            .no-print { display: none; }
+            body { background: white; color: black; }
+            .shadow-sm, .border { box-shadow: none; border: none; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="max-w-5xl mx-auto my-8 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        
+        <div class="bg-indigo-900 px-8 py-10 text-white">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h2 class="text-indigo-200 text-sm font-bold uppercase tracking-wide mb-2">HPG 6104 • Epidemiological Methods I</h2>
+                    <h1 class="text-3xl font-bold">Measures of Disease Frequency & Association</h1>
+                    <p class="text-indigo-200 mt-2">Week 1 Companion Handout (Quick Guide)</p>
+                </div>
+                <button onclick="window.print()" class="no-print bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors backdrop-blur-sm border border-white/20">
+                    Print / Save PDF
+                </button>
+            </div>
+        </div>
+
+        <div class="p-10 space-y-12">
+
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-indigo-100 -mt-2 select-none">01</span>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">The 2&times;2 Table (Your Universal Language)</h2>
+                        <p class="text-slate-600 leading-relaxed mb-4">
+                            Rule of thumb: before calculating anything, label your groups and confirm the denominator.
+                        </p>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-indigo-50 text-indigo-900">
+                                        <th class="p-3 border border-indigo-200"></th>
+                                        <th class="p-3 border border-indigo-200 text-center">Disease +</th>
+                                        <th class="p-3 border border-indigo-200 text-center">Disease −</th>
+                                        <th class="p-3 border border-indigo-200 text-center font-bold">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="p-3 border border-slate-200 font-semibold bg-slate-50">Exposed</td>
+                                        <td class="p-3 border border-slate-200 text-center">a</td>
+                                        <td class="p-3 border border-slate-200 text-center">b</td>
+                                        <td class="p-3 border border-slate-200 text-center font-bold bg-slate-50">a + b</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 border border-slate-200 font-semibold bg-slate-50">Unexposed</td>
+                                        <td class="p-3 border border-slate-200 text-center">c</td>
+                                        <td class="p-3 border border-slate-200 text-center">d</td>
+                                        <td class="p-3 border border-slate-200 text-center font-bold bg-slate-50">c + d</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 border border-slate-200 font-bold bg-slate-100">Total</td>
+                                        <td class="p-3 border border-slate-200 text-center font-bold bg-slate-100">a + c</td>
+                                        <td class="p-3 border border-slate-200 text-center font-bold bg-slate-100">b + d</td>
+                                        <td class="p-3 border border-slate-200 text-center font-bold bg-slate-200">N</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-indigo-100 -mt-2 select-none">02</span>
+                    <div class="w-full space-y-8">
+                        <h2 class="text-2xl font-bold text-slate-900">Measures of Disease Frequency</h2>
+
+                        <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                            <h3 class="text-lg font-bold text-indigo-700 mb-3">1) Prevalence (A snapshot: "How much disease is here?")</h3>
+                            <ul class="space-y-4 text-sm text-slate-600">
+                                <li><strong>Point prevalence:</strong> (Existing cases at time <i>t</i>) &divide; (Total population at time <i>t</i>)</li>
+                                <li><strong>Period prevalence:</strong> (People who had disease during period) &divide; (Average population during period)</li>
+                            </ul>
+                            <div class="mt-4 p-3 bg-indigo-50 rounded text-sm text-indigo-900">
+                                <strong>Interpretation:</strong> Burden of disease &rarr; useful for planning services (beds, clinics, meds).<br>
+                                <strong>Common trap:</strong> Prevalence changes with duration (chronic diseases inflate prevalence even if incidence is modest).
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                            <h3 class="text-lg font-bold text-indigo-700 mb-3">2) Incidence (A video: "How fast are new cases occurring?")</h3>
+                            <ul class="space-y-4 text-sm text-slate-600">
+                                <li>
+                                    <strong>Cumulative incidence (Risk):</strong> (New cases during period) &divide; (Population at risk at start)<br>
+                                    <span class="text-slate-500 italic">Assumptions: closed cohort; follow-up time similar; everyone starts disease-free.</span>
+                                </li>
+                                <li>
+                                    <strong>Incidence rate (Density):</strong> (New cases) &divide; (Total person-time at risk)<br>
+                                    <span class="text-slate-500 italic">Best when: open/dynamic populations, varying follow-up, losses to follow-up.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                            <h3 class="text-lg font-bold text-indigo-700 mb-3">3) Linking Prevalence and Incidence</h3>
+                            <p class="text-sm font-medium text-slate-800">Prevalence &approx; Incidence &times; Average duration</p>
+                            <p class="text-sm text-slate-600 mt-2"><strong>Why it fails:</strong> Rapidly changing incidence, short observation windows, changes in survival, migration, case definitions.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-indigo-100 -mt-2 select-none">03</span>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-6">Measures of Association</h2>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="border-l-4 border-sky-500 bg-sky-50 p-6 rounded-r-lg">
+                                <h3 class="font-bold text-sky-900 text-lg mb-4">Cohort Studies (Incidence is known)</h3>
+                                <ul class="space-y-3 text-sm text-sky-800">
+                                    <li><strong>Relative Risk (RR):</strong> <i>I<sub>e</sub></i> / <i>I<sub>u</sub></i><br>
+                                        <span class="text-sky-700 text-xs">Ex: RR = 4 &rarr; exposed have 4&times; the risk vs unexposed.</span>
+                                    </li>
+                                    <li><strong>Risk Difference (RD):</strong> <i>I<sub>e</sub></i> - <i>I<sub>u</sub></i><br>
+                                        <span class="text-sky-700 text-xs">Absolute burden (extra cases due to exposure).</span>
+                                    </li>
+                                    <li><strong>Attributable Fraction (AF<sub>e</sub>):</strong> (RR - 1) / RR<br>
+                                        <span class="text-sky-700 text-xs">Proportion of disease among exposed attributable to exposure.</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="border-l-4 border-emerald-500 bg-emerald-50 p-6 rounded-r-lg">
+                                <h3 class="font-bold text-emerald-900 text-lg mb-4">Case-Control (Incidence unknown)</h3>
+                                <ul class="space-y-3 text-sm text-emerald-800">
+                                    <li><strong>Odds Ratio (OR):</strong> (a&times;d) / (b&times;c)<br>
+                                        <span class="text-emerald-700 text-xs">Odds of exposure among cases relative to controls.</span>
+                                    </li>
+                                    <li class="mt-4 border-t border-emerald-200 pt-2">
+                                        <strong>When OR &approx; RR:</strong> Rare outcome + controls represent source population.<br>
+                                        <span class="font-bold text-rose-600">Trap:</span> Saying "OR=4 means 4&times; risk" without checking rarity.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-indigo-100 -mt-2 select-none">04</span>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">Fast Cheat Sheet & Worked Example</h2>
+                        
+                        <div class="bg-slate-800 text-white rounded-xl p-6 mb-6">
+                            <h3 class="text-sky-400 font-bold mb-2">Choosing the Measure</h3>
+                            <ul class="text-sm space-y-1 text-slate-300">
+                                <li><strong>Cross-sectional:</strong> prevalence, PR, POR</li>
+                                <li><strong>Cohort:</strong> risk, rate, RR/IRR, RD, AF<sub>e</sub>, PAF</li>
+                                <li><strong>Case-control:</strong> OR</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 p-6 rounded-lg shadow-sm">
+                            <h3 class="font-bold text-slate-800 mb-2">Mini Worked Example (Cohort)</h3>
+                            <p class="text-sm text-slate-600 mb-4">If <i>I<sub>e</sub></i> = 40/1000 and <i>I<sub>u</sub></i> = 10/1000:</p>
+                            <ul class="text-sm text-slate-700 space-y-2 font-mono">
+                                <li>RR = 40 / 10 = <strong>4</strong></li>
+                                <li>RD = 40 - 10 = <strong>30 per 1,000</strong></li>
+                                <li>AF<sub>e</sub> = (4 - 1) / 4 = 0.75 &rarr; <strong>75%</strong> of cases among exposed are attributable.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mt-8 bg-indigo-900 text-white p-8 rounded-xl text-center">
+                <p class="text-lg font-medium text-indigo-100 italic">
+                    "Today we calculated measures from 2&times;2 tables. Next week we ask: are these differences likely due to chance? That’s where chi-square, Fisher’s exact, and Mantel–Haenszel come in."
+                </p>
+            </section>
+
+        </div>
+
+        <div class="bg-slate-100 px-8 py-6 border-t border-slate-200 flex justify-between items-center text-sm text-slate-500">
+            <a href="index.html" class="hover:text-indigo-600 transition-colors no-print">&larr; Back to Course Portal</a>
+            <span>© 2026 University of Nairobi</span>
+        </div>
+
+    </div>
+
+</body>
+</html>
