@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HPG 6104: Lecture Plan &amp; Calendar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Hero Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="md:flex md:items-center md:justify-between">
+                <div class="flex-1 min-w-0">
+                    <h2 class="text-xs font-bold text-sky-600 uppercase tracking-wide">Course Portal</h2>
+                    <h1 class="text-2xl font-bold leading-7 text-slate-900 sm:text-3xl sm:truncate mt-1">
+                        HPG 6104 – Epidemiological Methods II
+                    </h1>
+                </div>
+                <div class="mt-4 flex md:mt-0 md:ml-4">
+                    <span class="text-sm text-slate-500">University of Nairobi</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+        <div class="mb-8">
+            <a href="index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-800">
+                <span aria-hidden="true">←</span> Back to Portal
+            </a>
+        </div>
+
+        <section class="mb-10">
+            <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Lecture Plan & Calendar</h1>
+            <p class="mt-2 text-slate-600 max-w-3xl">
+                We began teaching in Week 3. This calendar keeps the conceptual flow intact (frequency → tables → confounding → causality → regression → design → bias/validity → integration).
+            </p>
+        </section>
+
+        <section class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+            <div class="px-6 py-4 border-b border-slate-200 bg-slate-50">
+                <h2 class="text-xl font-bold text-slate-900">Semester plan (starting Week 3)</h2>
+                <p class="mt-1 text-sm text-slate-600">One lecture per week, with one practical R session and two continuous assessment points.</p>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full text-sm">
+                    <thead class="bg-white sticky top-0 border-b border-slate-200">
+                        <tr class="text-left text-slate-600">
+                            <th class="px-6 py-4 font-semibold">Teaching Week</th>
+                            <th class="px-6 py-4 font-semibold">Topic / Lecture</th>
+                            <th class="px-6 py-4 font-semibold">Student Work (Deliverable)</th>
+                            <th class="px-6 py-4 font-semibold">Assessment / Milestone</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200">
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-6 py-4 font-semibold text-slate-900">Week 3</td>
+                            <td class="px-6 py-4">Lecture 01: Measures of Disease Frequency & Association</td>
+                            <td class="px-6 py-4 text-slate-600">Reading + worked examples (2×2 table)</td>
+                            <td class="px-6 py-4 text-slate-500">—</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-6 py-4 font-semibold text-slate-900">Week 4</td>
+                            <td class="px-6 py-4">Lecture 02: Categorical Data Analysis & Contingency Tables</td>
+                            <td class="px-6 py-4 text-slate-600">Problem set: chi-square / Fisher basics</td>
+                            <td class="px-6 py-4 text-slate-500">—</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-6 py-4 font-semibold text-slate-900">Week 5</td>
+                            <td class="px-6 py-4">Lecture 03: Confounding & Effect Modification</td>
+                            <td class="px-6 py-4 text-slate-600">Stratification interpretation drills</td>
+                            <td class="px-6 py-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">Assignment 1 released</span></td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-6 py-4 font-semibold text-slate-900">Week 6</td>
+                            <td class="px-6 py-4">Lecture 03b: Practical Dataset in R</td>
+                            <td class="px-6 py-4 text-slate-600">Dataset intro + cleaning + simple summaries</td>
+                            <td class="px-6 py-4"><span class="text-rose-600 font-medium">Assignment 1 due end-week</span></td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-6 py-4 font-semibold text-slate-900">Week 7</td>
+                            <td class="px-6 py-4">Lecture 04: Causal Inference in Epidemiology</td>
+                            <td class="px-6 py-4 text-slate-600">DAG thinking + causal questions</td>
+                            <td class="px-6 py-4 text-slate-500">—</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-6 py-4 font-semibold text-slate-900">Week 8</td>
+                            <td class="px-6 py-4">Lecture 05: Advanced Confounding Control Measures</td>
+                            <td class="px-6 py-4 text-slate-600">Matching / stratification logic + design cautions</td>
+                            <td class="px-6 py-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">CAT 1 (mid-semester)</span></td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-6 py-4 font-semibold text-slate-900">Week 9</td>
+                            <td class="px-6 py-4">Lecture 06: Logistic Regression in Epidemiology</td>
+                            <td class="px-6 py-4 text-slate-600">Output interpretation + OR vs RR reminders</td>
+                            <td class="px-6 py-4 text-slate-500">—</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-6 py-4 font-semibold text-slate-900">Week 10</td>
+                            <td class="px-6 py-4">Lecture 07: Study Designs – Strengths, Biases & Causal Utility</td>
+                            <td class="px-6 py-4 text-slate-600">Design-choice vignettes + bias spotting</td>
+                            <td class="px-6 py-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">Assignment 2 released</span></td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-6 py-4 font-semibold text-slate-900">Week 11</td>
+                            <td class="px-6 py-4">Lecture 08: Bias, Validity, and Modern Methods (Part I)</td>
+                            <td class="px-6 py-4 text-slate-600">Bias taxonomy + validity threats</td>
+                            <td class="px-6 py-4 text-slate-500">—</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-6 py-4 font-semibold text-slate-900">Week 12</td>
+                            <td class="px-6 py-4">Lecture 09: Bias, Validity, and Modern Methods (Part II)</td>
+                            <td class="px-6 py-4 text-slate-600">Prediction vs causal models + ML cautions</td>
+                            <td class="px-6 py-4"><span class="text-rose-600 font-medium">Assignment 2 due end-week</span></td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-6 py-4 font-semibold text-slate-900">Week 13</td>
+                            <td class="px-6 py-4">Lecture 10: Integrating Methods in Public Health Practice</td>
+                            <td class="px-6 py-4 text-slate-600">Evidence interpretation + exam revision guide</td>
+                            <td class="px-6 py-4 text-slate-500">—</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                <h3 class="text-lg font-bold text-slate-900">Option A (recommended): catch up without extra class time</h3>
+                <p class="mt-2 text-sm text-slate-700">
+                    Treat Weeks 1–2 as guided self-study (readings + a short exercise). Keep class time for the lecture sequence above.
+                </p>
+            </div>
+            <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                <h3 class="text-lg font-bold text-slate-900">Option B: compress gently (only if timetable is short)</h3>
+                <p class="mt-2 text-sm text-slate-700">
+                    Fold the R dataset introduction into a practical tutorial slot and use two markable assignments instead of multiple CATs.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 text-slate-400 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-sm">© 2026 HPG 6104 Course Materials</p>
+            <p class="text-xs mt-2 text-slate-500">Designed for Educational Use</p>
+        </div>
+    </footer>
+
+</body>
+</html>

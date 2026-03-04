@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HPG 6104: Lecture List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Hero Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="md:flex md:items-center md:justify-between">
+                <div class="flex-1 min-w-0">
+                    <h2 class="text-xs font-bold text-sky-600 uppercase tracking-wide">Course Portal</h2>
+                    <h1 class="text-2xl font-bold leading-7 text-slate-900 sm:text-3xl sm:truncate mt-1">
+                        HPG 6104 – Epidemiological Methods I
+                    </h1>
+                </div>
+                <div class="mt-4 flex md:mt-0 md:ml-4">
+                    <span class="text-sm text-slate-500">University of Nairobi</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+        <div class="mb-8">
+            <a href="index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-800">
+                <span aria-hidden="true">←</span> Back to Portal
+            </a>
+        </div>
+
+        <section class="mb-10">
+            <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Lecture List</h1>
+            <p class="mt-2 text-slate-600 max-w-3xl">
+                All lectures for HPG 6104 this semester. Slides and supporting materials are posted in the portal and lecture folders.
+            </p>
+        </section>
+
+        <section class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+            <div class="px-6 py-4 border-b border-slate-200 bg-slate-50">
+                <h2 class="text-xl font-bold text-slate-900">Semester lectures</h2>
+                <p class="mt-1 text-sm text-slate-600">Order reflects the teaching sequence used in class.</p>
+            </div>
+
+            <div class="divide-y divide-slate-200">
+                <div class="p-6 hover:bg-slate-50 transition-colors">
+                    <h3 class="text-lg font-bold text-slate-900">Lecture 01: Measures of Disease Frequency and Association</h3>
+                    <p class="mt-2 text-slate-700">Prevalence, incidence, mortality, RR/RD/OR, attributable fractions; interpretation and common pitfalls.</p>
+                    <div class="mt-3 text-sm text-indigo-600 font-medium">Suggested student task: complete the Week 1 worked examples + short problem set.</div>
+                </div>
+
+                <div class="p-6 hover:bg-slate-50 transition-colors">
+                    <h3 class="text-lg font-bold text-slate-900">Lecture 02: Categorical Data Analysis & Contingency Tables</h3>
+                    <p class="mt-2 text-slate-700">2×2 and r×c tables, chi-square, Fisher’s exact, association testing and interpretation.</p>
+                    <div class="mt-3 text-sm text-indigo-600 font-medium">Suggested student task: compute and interpret chi-square tests from given tables.</div>
+                </div>
+
+                <div class="p-6 hover:bg-slate-50 transition-colors">
+                    <h3 class="text-lg font-bold text-slate-900">Lecture 03: Confounding and Effect Modification</h3>
+                    <p class="mt-2 text-slate-700">Non-exchangeability, stratification, effect measure modification, interpretation discipline.</p>
+                    <div class="mt-3 text-sm text-indigo-600 font-medium">Suggested student task: stratified RR/OR analysis + interpret confounding vs modification.</div>
+                </div>
+
+                <div class="p-6 hover:bg-slate-50 transition-colors">
+                    <h3 class="text-lg font-bold text-slate-900">Lecture 03b: Introducing the Practical Dataset in R</h3>
+                    <p class="mt-2 text-slate-700">Dataset orientation, cleaning, simple summaries, and preparing for regression and design questions.</p>
+                    <div class="mt-3 text-sm text-indigo-600 font-medium">Suggested student task: reproduce the basic R workflow and generate summary tables.</div>
+                </div>
+
+                <div class="p-6 hover:bg-slate-50 transition-colors">
+                    <h3 class="text-lg font-bold text-slate-900">Lecture 04: Causal Inference in Epidemiology</h3>
+                    <p class="mt-2 text-slate-700">Counterfactual thinking, causal questions, assumptions, and where observational studies break.</p>
+                    <div class="mt-3 text-sm text-indigo-600 font-medium">Suggested student task: identify estimands and sketch causal pathways for case vignettes.</div>
+                </div>
+
+                <div class="p-6 hover:bg-slate-50 transition-colors">
+                    <h3 class="text-lg font-bold text-slate-900">Lecture 05: Advanced Confounding Control Measures</h3>
+                    <p class="mt-2 text-slate-700">Design and analysis strategies: matching, stratification/standardization, conceptual role of randomization.</p>
+                    <div class="mt-3 text-sm text-indigo-600 font-medium">Suggested student task: decide which control method fits a scenario and justify.</div>
+                </div>
+
+                <div class="p-6 hover:bg-slate-50 transition-colors">
+                    <h3 class="text-lg font-bold text-slate-900">Lecture 06: Logistic Regression in Epidemiology</h3>
+                    <p class="mt-2 text-slate-700">Binary outcomes, OR interpretation, adjusted effects, confounding control, output reading.</p>
+                    <div class="mt-3 text-sm text-indigo-600 font-medium">Suggested student task: interpret regression output (coefficients, ORs, CIs, p-values) in plain English.</div>
+                </div>
+
+                <div class="p-6 hover:bg-slate-50 transition-colors">
+                    <h3 class="text-lg font-bold text-slate-900">Lecture 07: Epidemiologic Study Designs – Strengths, Biases & Causal Utility</h3>
+                    <p class="mt-2 text-slate-700">Cross-sectional, case-control, cohort, RCT as benchmark; strengths/limitations and causal usefulness.</p>
+                    <div class="mt-3 text-sm text-indigo-600 font-medium">Suggested student task: map research questions to designs and anticipate biases.</div>
+                </div>
+
+                <div class="p-6 hover:bg-slate-50 transition-colors">
+                    <h3 class="text-lg font-bold text-slate-900">Lecture 08 & 09: Bias, Validity, and Modern Methods in Epidemiology</h3>
+                    <p class="mt-2 text-slate-700">Selection and information bias, measurement, validity threats, and modern analytic cautions (prediction vs causal; ML).</p>
+                    <div class="mt-3 text-sm text-indigo-600 font-medium">Suggested student task: critique a short study abstract for validity threats and interpretability.</div>
+                </div>
+
+                <div class="p-6 hover:bg-slate-50 transition-colors">
+                    <h3 class="text-lg font-bold text-slate-900">Lecture 10: Integrating Epidemiologic Methods in Public Health Practice</h3>
+                    <p class="mt-2 text-slate-700">How to connect methods to decisions: interpreting evidence, translating findings into practice and policy.</p>
+                    <div class="mt-3 text-sm text-indigo-600 font-medium">Suggested student task: “So what?” exercise — interpret results and propose an action plan.</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 text-slate-400 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-sm">© 2026 HPG 6104 Course Materials</p>
+            <p class="text-xs mt-2 text-slate-500">Designed for Educational Use</p>
+        </div>
+    </footer>
+
+</body>
+</html>

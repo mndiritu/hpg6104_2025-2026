@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HPG 6104: Course Outline</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Hero Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="md:flex md:items-center md:justify-between">
+                <div class="flex-1 min-w-0">
+                    <h2 class="text-xs font-bold text-sky-600 uppercase tracking-wide">Course Portal</h2>
+                    <h1 class="text-2xl font-bold leading-7 text-slate-900 sm:text-3xl sm:truncate mt-1">
+                        HPG 6104 – Epidemiological Methods I
+                    </h1>
+                </div>
+                <div class="mt-4 flex md:mt-0 md:ml-4">
+                    <span class="text-sm text-slate-500">University of Nairobi</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+        <div class="mb-8">
+            <a href="index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-800">
+                <span aria-hidden="true">←</span> Back to Portal
+            </a>
+        </div>
+
+        <section class="mb-10">
+            <div class="flex items-start justify-between gap-6 flex-col md:flex-row">
+                <div>
+                    <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">HPG 6104 Course Outline</h1>
+                    <p class="mt-2 text-slate-600 max-w-3xl">
+                        Epidemiological Methods I — core objectives, learning outcomes, content areas, delivery mode, assessment, and readings.
+                    </p>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm w-full md:w-auto">
+                    <div class="text-sm text-slate-500">Course</div>
+                    <div class="text-lg font-bold text-slate-900">HPG 6104</div>
+                    <div class="text-sm text-slate-600">Epidemiological Methods I</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 space-y-6">
+                <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                    <h2 class="text-xl font-bold text-slate-900">Prerequisite</h2>
+                    <p class="mt-2 text-slate-700">HPG 6103</p>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                    <h2 class="text-xl font-bold text-slate-900">Course Objective</h2>
+                    <p class="mt-3 text-slate-700 leading-relaxed">
+                        The primary objective is to provide learners with the basic tools necessary to conceptualize the design of, and interpret the
+                        results from, observational epidemiologic studies. Learners will be able to calculate basic measures of association between
+                        exposures and disease, identify major epidemiologic study designs, and define confounding, selection bias and information bias.
+                    </p>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                    <h2 class="text-xl font-bold text-slate-900">Learning Outcomes</h2>
+                    <ul class="mt-3 list-disc pl-6 space-y-2 text-slate-700">
+                        <li>Articulate the relationship between association and causation.</li>
+                        <li>Apply causal concepts to the design and interpretation of epidemiologic studies.</li>
+                        <li>Calculate and interpret basic measures of association.</li>
+                        <li>Develop testable research hypotheses from a causal theory.</li>
+                        <li>Recognize and explain the effects of non-exchangeability.</li>
+                        <li>Distinguish among the sources of non-exchangeability.</li>
+                        <li>Choose study designs appropriate for specific research questions.</li>
+                        <li>Identify sources of, and methods to avoid, invalidity in epidemiologic research.</li>
+                        <li>Relate these sources of invalidity to the definition of a cause.</li>
+                        <li>Test research hypotheses using stratification, standardization and logistic regression.</li>
+                        <li>Interpret logistic regression output to address causal questions.</li>
+                        <li>Critically evaluate the limitations of current epidemiologic methods.</li>
+                        <li>Work efficiently and productively in a team setting.</li>
+                        <li>Understand dangers of substituting one model for another; distinguish prediction vs causal models.</li>
+                        <li>Use modern methods (including ML) appropriately for large health datasets in public health research.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                    <h2 class="text-xl font-bold text-slate-900">Course Content</h2>
+                    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-700">
+                        <div class="p-4 rounded-lg bg-slate-50 border border-slate-200">
+                            <h3 class="font-bold text-slate-900">Categorical Data Analysis</h3>
+                            <ul class="mt-2 list-disc pl-5 space-y-1">
+                                <li>Contingency tables</li>
+                                <li>Mantel–Haenszel methods</li>
+                                <li>Tests of agreement</li>
+                                <li>Logistic regression</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 rounded-lg bg-slate-50 border border-slate-200">
+                            <h3 class="font-bold text-slate-900">Measures of Association</h3>
+                            <ul class="mt-2 list-disc pl-5 space-y-1">
+                                <li>Relative risk (RR)</li>
+                                <li>Attributable risk / risk difference (AR/RD)</li>
+                                <li>Prevalence ratio</li>
+                                <li>Population attributable risk percent (PAR% / PAF)</li>
+                                <li>Odds ratio (OR)</li>
+                                <li>Standardized mortality/incidence ratios</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 rounded-lg bg-slate-50 border border-slate-200">
+                            <h3 class="font-bold text-slate-900">Causality & Validity</h3>
+                            <ul class="mt-2 list-disc pl-5 space-y-1">
+                                <li>Fundamental problem of causal inference</li>
+                                <li>Confounding and effect modification</li>
+                                <li>DAGs</li>
+                                <li>Selection bias and information bias</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 rounded-lg bg-slate-50 border border-slate-200">
+                            <h3 class="font-bold text-slate-900">Study Designs</h3>
+                            <ul class="mt-2 list-disc pl-5 space-y-1">
+                                <li>Cross-sectional</li>
+                                <li>Case-control</li>
+                                <li>Cohort</li>
+                                <li>RCTs (benchmark)</li>
+                                <li>Ecological and multilevel</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="mt-4 text-slate-700">
+                        The course will use examples and case studies that draw on data science methods, large datasets, and complex study designs,
+                        emphasizing integration of these approaches into public health practice.
+                    </p>
+                </div>
+            </div>
+
+            <aside class="space-y-6">
+                <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                    <h2 class="text-lg font-bold text-slate-900">Mode of Delivery</h2>
+                    <ul class="mt-3 list-disc pl-6 space-y-2 text-slate-700">
+                        <li>Lectures and PowerPoint presentations</li>
+                        <li>Lecture notes and handouts</li>
+                        <li>Reading assignments and exercises</li>
+                        <li>Practical sessions (dataset work in R)</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                    <h2 class="text-lg font-bold text-slate-900">Assessment</h2>
+                    <ul class="mt-3 space-y-2 text-slate-700">
+                        <li><span class="font-semibold">Final written exam (2 hours):</span> 50%</li>
+                        <li><span class="font-semibold">CATs & assignments:</span> 50%</li>
+                    </ul>
+                    <p class="mt-3 text-sm text-slate-600">
+                        Continuous assessment will include markable problem sets and at least one mid-semester CAT.
+                    </p>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                    <h2 class="text-lg font-bold text-slate-900">Core Readings</h2>
+                    <ul class="mt-3 list-disc pl-6 space-y-2 text-slate-700">
+                        <li>Savitz, D.A. & Wellenius, G.A. (2016). <span class="italic">Interpreting Epidemiologic Evidence</span> (2nd ed.). Oxford.</li>
+                        <li>Aschengrau, A. & Seage, G.M. (2018). <span class="italic">Essentials of Epidemiology in Public Health</span> (4th ed.). Jones & Bartlett.</li>
+                        <li>Keyes, K.M. & Galea, S. (2014). <span class="italic">Epidemiology Matters</span>. Oxford.</li>
+                    </ul>
+                    <h3 class="mt-5 text-sm font-bold text-slate-900 uppercase tracking-wide">Further references</h3>
+                    <ul class="mt-2 list-disc pl-6 space-y-2 text-slate-700">
+                        <li>Rothman, K.J. (2012). <span class="italic">Epidemiology: An Introduction</span> (2nd ed.). Oxford.</li>
+                        <li>Celentano, D.D. & Szklo, M. (2018). <span class="italic">Gordis Epidemiology</span> (6th ed.). Elsevier.</li>
+                        <li><span class="italic">American Journal of Epidemiology</span>; <span class="italic">Journal of Epidemiology & Community Health</span>.</li>
+                    </ul>
+                </div>
+            </aside>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 text-slate-400 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-sm">© 2026 HPG 6104 Course Materials</p>
+            <p class="text-xs mt-2 text-slate-500">Designed for Educational Use</p>
+        </div>
+    </footer>
+
+</body>
+</html>
