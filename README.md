@@ -1,6 +1,6 @@
-# **HPG 6104 – Epidemiological Methods I (2025-2026)**
+# **HPG 6104 – Epidemiological Methods II (2025-2026)**
 
-Welcome to the course repository for **HPG 6104: Epidemiological Methods I** at the University of Nairobi. This repository houses all the interactive course materials, student handouts, and web-based calculators designed to support the 2025-2026 academic year.
+Welcome to the course repository for **HPG 6104: Epidemiological Methods II** at the University of Nairobi. This repository houses all the interactive course materials, student handouts, and web-based calculators designed to support the 2025-2026 academic year.
 
 🌐 **Access the Live Course Portal here:** [https://mndiritu.github.io/hpg6104\_2025-2026/](https://mndiritu.github.io/hpg6104_2025-2026/)
 
