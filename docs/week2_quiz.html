@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 2 Practice Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Inter', sans-serif; } </style>
+</head>
+<body class="bg-slate-50 text-slate-800 p-8">
+
+    <div class="max-w-2xl mx-auto">
+        <div class="mb-6 flex items-center justify-between">
+            <h1 class="text-2xl font-bold text-slate-900">Categorical Data Quiz</h1>
+            <a href="index.html" class="text-sm text-emerald-600 hover:underline">Back to Portal</a>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8" id="quiz-container">
+            <!-- Questions injected here by JS -->
+        </div>
+
+        <div id="result-container" class="hidden mt-6 bg-emerald-50 border border-emerald-200 p-6 rounded-xl text-center">
+            <h2 class="text-2xl font-bold text-emerald-800 mb-2">Quiz Complete!</h2>
+            <p class="text-emerald-700">You scored <span id="score" class="font-bold text-xl"></span> out of 4.</p>
+            <p class="text-sm text-emerald-600 mt-4">"The real work lies in careful interpretation, especially in telling apart association, confounding, and effect modification."</p>
+            <button onclick="location.reload()" class="mt-4 bg-emerald-600 text-white px-4 py-2 rounded font-medium hover:bg-emerald-700 transition">Retry Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "When is Fisher's exact test preferred over the Chi-square test?",
+                options: [
+                    "When comparing continuous variables.",
+                    "When sample sizes are small or expected cell counts are < 5.",
+                    "When you want to control for multiple confounders.",
+                    "When the p-value from the Chi-square test is > 0.05."
+                ],
+                correct: 1,
+                explanation: "Fisher's exact test does not rely on the large-sample approximation used in Chi-square, making it appropriate for sparse tables."
+            },
+            {
+                question: "What does a significant p-value from a Chi-square test tell you?",
+                options: [
+                    "The strength of the association is very high.",
+                    "The relationship between the variables is causal.",
+                    "The observed distribution is unlikely under the null hypothesis of no association.",
+                    "Confounding is present in the data."
+                ],
+                correct: 2,
+                explanation: "It only tells you that the pattern is unlikely due to chance. It does NOT tell you the strength, direction, or causality of the association."
+            },
+            {
+                question: "In a stratified analysis, what pattern suggests the presence of confounding?",
+                options: [
+                    "The stratum-specific ORs differ substantially from each other.",
+                    "The crude OR is exactly 1.0.",
+                    "The stratum-specific ORs are similar to each other, but differ from the crude OR.",
+                    "The p-value is > 0.05."
+                ],
+                correct: 2,
+                explanation: "When stratum ORs are similar to each other but the Crude OR is different, it means the crude estimate was distorted by the stratification variable."
+            },
+            {
+                question: "If stratum-specific odds ratios differ substantially from one another, what is likely present?",
+                options: [
+                    "Effect modification",
+                    "Random error",
+                    "Selection Bias",
+                    "Perfect confounding"
+                ],
+                correct: 0,
+                explanation: "Effect modification (or interaction) means the true association varies across levels of another variable. A pooled Mantel-Haenszel estimate would hide this reality."
+            }
+        ];
+
+        let currentQ = 0;
+        let score = 0;
+        const container = document.getElementById('quiz-container');
+
+        function loadQuestion() {
+            if (currentQ >= questions.length) {
+                container.classList.add('hidden');
+                document.getElementById('result-container').classList.remove('hidden');
+                document.getElementById('score').innerText = score;
+                return;
+            }
+
+            const q = questions[currentQ];
+            let html = `<h2 class="text-lg font-bold text-slate-800 mb-4">Q${currentQ + 1}: ${q.question}</h2><div class="space-y-3">`;
+            
+            q.options.forEach((opt, idx) => {
+                html += `
+                    <button onclick="checkAnswer(${idx})" class="w-full text-left p-4 rounded-lg border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 transition-colors">
+                        ${opt}
+                    </button>
+                `;
+            });
+            html += `</div><div id="feedback" class="mt-4 hidden p-3 rounded text-sm"></div>`;
+            container.innerHTML = html;
+        }
+
+        function checkAnswer(selected) {
+            const q = questions[currentQ];
+            const feedback = document.getElementById('feedback');
+            
+            if(!feedback.classList.contains('hidden')) return;
+
+            feedback.classList.remove('hidden');
+            
+            if (selected === q.correct) {
+                score++;
+                feedback.classList.add('bg-emerald-100', 'text-emerald-800');
+                feedback.innerHTML = `<strong>Correct!</strong> ${q.explanation}`;
+            } else {
+                feedback.classList.add('bg-rose-100', 'text-rose-800');
+                feedback.innerHTML = `<strong>Incorrect.</strong> ${q.explanation}`;
+            }
+
+            setTimeout(() => {
+                currentQ++;
+                loadQuestion();
+            }, 3000); 
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>

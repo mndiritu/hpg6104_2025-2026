@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stratification Analyzer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Inter', sans-serif; } </style>
+</head>
+<body class="bg-slate-50 text-slate-800 p-4 md:p-8 min-h-screen">
+
+    <div class="max-w-4xl mx-auto">
+        <div class="mb-6 flex items-center justify-between">
+            <h1 class="text-2xl font-bold text-slate-900">Stratification Analyzer</h1>
+            <a href="index.html" class="text-sm text-sky-600 hover:underline">Back to Portal</a>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="p-6 md:p-8 bg-slate-800 text-white">
+                <p class="text-slate-300">
+                    Input 2×2 data for two different strata (e.g., Younger vs. Older). The tool will combine them to calculate the <strong>Crude OR</strong> and compare it against the <strong>Stratum-specific ORs</strong> to check for Confounding or Effect Modification.
+                </p>
+            </div>
+
+            <div class="p-6 md:p-8">
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    
+                    <!-- Stratum 1 -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-lg p-5">
+                        <h3 class="font-bold text-slate-800 mb-4 text-center border-b pb-2">Stratum 1 (e.g., Younger)</h3>
+                        <div class="grid grid-cols-3 gap-3 text-center items-center text-sm">
+                            <div></div>
+                            <div class="font-bold text-slate-600">Dis +</div>
+                            <div class="font-bold text-slate-600">Dis −</div>
+                            <div class="font-bold text-slate-600 text-right pr-2">Exp +</div>
+                            <div><input type="number" id="s1_a" class="w-full border border-slate-300 rounded p-2 text-center focus:border-sky-500" value="30"></div>
+                            <div><input type="number" id="s1_b" class="w-full border border-slate-300 rounded p-2 text-center focus:border-sky-500" value="20"></div>
+                            <div class="font-bold text-slate-600 text-right pr-2">Exp −</div>
+                            <div><input type="number" id="s1_c" class="w-full border border-slate-300 rounded p-2 text-center focus:border-sky-500" value="10"></div>
+                            <div><input type="number" id="s1_d" class="w-full border border-slate-300 rounded p-2 text-center focus:border-sky-500" value="40"></div>
+                        </div>
+                    </div>
+
+                    <!-- Stratum 2 -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-lg p-5">
+                        <h3 class="font-bold text-slate-800 mb-4 text-center border-b pb-2">Stratum 2 (e.g., Older)</h3>
+                        <div class="grid grid-cols-3 gap-3 text-center items-center text-sm">
+                            <div></div>
+                            <div class="font-bold text-slate-600">Dis +</div>
+                            <div class="font-bold text-slate-600">Dis −</div>
+                            <div class="font-bold text-slate-600 text-right pr-2">Exp +</div>
+                            <div><input type="number" id="s2_a" class="w-full border border-slate-300 rounded p-2 text-center focus:border-sky-500" value="10"></div>
+                            <div><input type="number" id="s2_b" class="w-full border border-slate-300 rounded p-2 text-center focus:border-sky-500" value="40"></div>
+                            <div class="font-bold text-slate-600 text-right pr-2">Exp −</div>
+                            <div><input type="number" id="s2_c" class="w-full border border-slate-300 rounded p-2 text-center focus:border-sky-500" value="5"></div>
+                            <div><input type="number" id="s2_d" class="w-full border border-slate-300 rounded p-2 text-center focus:border-sky-500" value="50"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="analyze()" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-lg transition-colors">
+                    Analyze Stratification
+                </button>
+
+                <!-- Results Section -->
+                <div id="results" class="hidden mt-8">
+                    <h3 class="text-xl font-bold text-slate-800 border-b pb-2 mb-4">Diagnostic Results</h3>
+                    
+                    <div class="grid grid-cols-3 gap-4 mb-6">
+                        <div class="bg-white border-2 border-slate-200 p-4 rounded-lg text-center">
+                            <span class="block text-slate-500 text-sm mb-1">Stratum 1 OR</span>
+                            <span id="resS1" class="text-2xl font-bold text-slate-800"></span>
+                        </div>
+                        <div class="bg-sky-50 border-2 border-sky-200 p-4 rounded-lg text-center shadow-inner">
+                            <span class="block text-sky-700 text-sm mb-1 font-bold">Crude OR (Pooled)</span>
+                            <span id="resCrude" class="text-3xl font-bold text-sky-900"></span>
+                        </div>
+                        <div class="bg-white border-2 border-slate-200 p-4 rounded-lg text-center">
+                            <span class="block text-slate-500 text-sm mb-1">Stratum 2 OR</span>
+                            <span id="resS2" class="text-2xl font-bold text-slate-800"></span>
+                        </div>
+                    </div>
+
+                    <div id="interpretationBox" class="p-5 rounded-lg border-l-4">
+                        <h4 id="intTitle" class="font-bold text-lg mb-1"></h4>
+                        <p id="intDesc" class="text-sm"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calcOR(a, b, c, d) {
+            if (b === 0 || c === 0) return Infinity; // Prevent div by 0
+            return (a * d) / (b * c);
+        }
+
+        function analyze() {
+            // Get values
+            const s1a = parseFloat(document.getElementById('s1_a').value) || 0;
+            const s1b = parseFloat(document.getElementById('s1_b').value) || 0;
+            const s1c = parseFloat(document.getElementById('s1_c').value) || 0;
+            const s1d = parseFloat(document.getElementById('s1_d').value) || 0;
+
+            const s2a = parseFloat(document.getElementById('s2_a').value) || 0;
+            const s2b = parseFloat(document.getElementById('s2_b').value) || 0;
+            const s2c = parseFloat(document.getElementById('s2_c').value) || 0;
+            const s2d = parseFloat(document.getElementById('s2_d').value) || 0;
+
+            // Calculate ORs
+            const or1 = calcOR(s1a, s1b, s1c, s1d);
+            const or2 = calcOR(s2a, s2b, s2c, s2d);
+            const crudeOR = calcOR(s1a + s2a, s1b + s2b, s1c + s2c, s1d + s2d);
+
+            // Display
+            document.getElementById('resS1').innerText = or1 === Infinity ? "Undef" : or1.toFixed(2);
+            document.getElementById('resS2').innerText = or2 === Infinity ? "Undef" : or2.toFixed(2);
+            document.getElementById('resCrude').innerText = crudeOR === Infinity ? "Undef" : crudeOR.toFixed(2);
+
+            // Logic for Interpretation
+            const box = document.getElementById('interpretationBox');
+            const title = document.getElementById('intTitle');
+            const desc = document.getElementById('intDesc');
+
+            box.className = "p-5 rounded-lg border-l-4"; // reset classes
+
+            // Crude logic to differentiate
+            const diffStrata = Math.abs(or1 - or2);
+            const avgStrata = (or1 + or2) / 2;
+            const diffCrude = Math.abs(avgStrata - crudeOR);
+
+            if (diffStrata > 1.5 || (Math.max(or1, or2) / Math.min(or1, or2)) > 2) {
+                // Effect Modification
+                box.classList.add('bg-rose-50', 'border-rose-500', 'text-rose-900');
+                title.innerText = "Likely Effect Modification";
+                desc.innerText = "The stratum-specific ORs differ substantially from one another. The association truly varies across levels of this variable. Reporting the single Crude OR hides this biological reality. You should report the stratum-specific results.";
+            } else if (diffCrude > 0.5 || (crudeOR / avgStrata > 1.2) || (avgStrata / crudeOR > 1.2)) {
+                // Confounding
+                box.classList.add('bg-indigo-50', 'border-indigo-500', 'text-indigo-900');
+                title.innerText = "Likely Confounding";
+                desc.innerText = "The stratum-specific ORs are relatively similar to each other, but they differ from the Crude OR. The crude estimate is distorted by this third variable. A Mantel-Haenszel adjusted OR is appropriate here.";
+            } else {
+                // Neither / Minimal
+                box.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-900');
+                title.innerText = "Minimal Confounding or Modification";
+                desc.innerText = "The stratum-specific ORs and the Crude OR are all relatively similar. Stratification did not reveal significant distortion. The Crude OR is likely an acceptable estimate.";
+            }
+
+            document.getElementById('results').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
