@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 3 Student Companion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style> 
+        body { font-family: 'Inter', sans-serif; } 
+        @media print {
+            .no-print { display: none; }
+            body { background: white; color: black; }
+            .shadow-sm, .border { box-shadow: none; border: none; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="max-w-5xl mx-auto my-8 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        
+        <!-- Header -->
+        <div class="bg-indigo-900 px-8 py-10 text-white">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h2 class="text-indigo-200 text-sm font-bold uppercase tracking-wide mb-2">HPG 6104 • Epidemiological Methods I</h2>
+                    <h1 class="text-3xl font-bold">Confounding & Effect Modification</h1>
+                    <p class="text-indigo-200 mt-2">Week 3 Student Companion Guide</p>
+                </div>
+                <button onclick="window.print()" class="no-print bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors backdrop-blur-sm border border-white/20">
+                    Print / Save PDF
+                </button>
+            </div>
+        </div>
+
+        <div class="p-10 space-y-12">
+
+            <!-- 1. What is Confounding -->
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-indigo-100 -mt-2 select-none">01</span>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">What Is Confounding?</h2>
+                        <p class="text-slate-600 mb-6">
+                            A confounder is a variable that distorts (inflates or deflates) the true association between an exposure and an outcome. To be a confounder, a variable must simultaneously satisfy <strong>three criteria</strong>:
+                        </p>
+                        
+                        <div class="grid md:grid-cols-3 gap-4 mb-8">
+                            <div class="bg-white border-2 border-slate-200 rounded-xl p-4 shadow-sm text-center">
+                                <div class="w-10 h-10 bg-indigo-100 text-indigo-700 font-bold rounded-full flex items-center justify-center mx-auto mb-3">1</div>
+                                <h3 class="font-bold text-slate-800 text-sm mb-2">Associated with Exposure</h3>
+                                <p class="text-xs text-slate-600">The confounder is distributed unequally between exposed and unexposed groups.</p>
+                            </div>
+                            <div class="bg-white border-2 border-slate-200 rounded-xl p-4 shadow-sm text-center">
+                                <div class="w-10 h-10 bg-indigo-100 text-indigo-700 font-bold rounded-full flex items-center justify-center mx-auto mb-3">2</div>
+                                <h3 class="font-bold text-slate-800 text-sm mb-2">Independent Risk Factor</h3>
+                                <p class="text-xs text-slate-600">Affects the risk of the outcome over and above the effect of the exposure.</p>
+                            </div>
+                            <div class="bg-white border-2 border-slate-200 rounded-xl p-4 shadow-sm text-center">
+                                <div class="w-10 h-10 bg-indigo-100 text-indigo-700 font-bold rounded-full flex items-center justify-center mx-auto mb-3">3</div>
+                                <h3 class="font-bold text-slate-800 text-sm mb-2">Not on Causal Pathway</h3>
+                                <p class="text-xs text-slate-600">It is not an intermediary step. The exposure does not <em>cause</em> the confounder.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                            <h4 class="font-bold text-slate-900 mb-2">The 10% Rule (Detecting Confounding)</h4>
+                            <p class="text-sm text-slate-700 mb-3">A heuristic used to determine if a variable is a <em>meaningful</em> confounder:</p>
+                            <div class="bg-white border border-slate-300 rounded p-3 font-mono text-center text-slate-800 mb-3">
+                                | (Crude OR - Adjusted OR) | / Crude OR > 0.10
+                            </div>
+                            <p class="text-xs text-slate-500 italic">Example: If Crude OR = 5.09 and Adjusted OR = 5.42. The change is |5.09 - 5.42| / 5.09 = 6.5%. Because 6.5% < 10%, it is only mild confounding.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Confounding vs Effect Modification -->
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-indigo-100 -mt-2 select-none">02</span>
+                    <div class="w-full space-y-6">
+                        <h2 class="text-2xl font-bold text-slate-900">Confounding vs. Effect Modification</h2>
+                        <p class="text-sm text-slate-600">This is the most commonly confused point in epidemiology. One is a bias to be removed; the other is a biological/social reality to be reported.</p>
+                        
+                        <div class="overflow-x-auto rounded-lg border border-slate-200">
+                            <table class="w-full text-left text-sm border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-50 text-slate-700">
+                                        <th class="p-4 border-b border-slate-200">Feature</th>
+                                        <th class="p-4 border-b border-slate-200 font-bold text-indigo-700">Confounding (Bias)</th>
+                                        <th class="p-4 border-b border-slate-200 font-bold text-emerald-700">Effect Modification (Finding)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="p-4 border-b border-slate-200 font-semibold text-slate-800">What it is</td>
+                                        <td class="p-4 border-b border-slate-200 text-slate-600">A bias—the true association is distorted.</td>
+                                        <td class="p-4 border-b border-slate-200 text-slate-600">A real phenomenon—the effect genuinely differs between groups.</td>
+                                    </tr>
+                                    <tr class="bg-slate-50">
+                                        <td class="p-4 border-b border-slate-200 font-semibold text-slate-800">What to do</td>
+                                        <td class="p-4 border-b border-slate-200 text-slate-600">Adjust for it (regression or pool via M-H).</td>
+                                        <td class="p-4 border-b border-slate-200 text-slate-600">Report it! Present stratum-specific estimates.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-4 border-b border-slate-200 font-semibold text-slate-800">OR across strata</td>
+                                        <td class="p-4 border-b border-slate-200 text-slate-600">Similar within strata (homogeneous).</td>
+                                        <td class="p-4 border-b border-slate-200 text-slate-600">Differs significantly across strata (heterogeneous).</td>
+                                    </tr>
+                                    <tr class="bg-slate-50">
+                                        <td class="p-4 border-b border-slate-200 font-semibold text-slate-800">Statistical Test</td>
+                                        <td class="p-4 border-b border-slate-200 text-slate-600">Compare crude vs. adjusted OR (10% rule).</td>
+                                        <td class="p-4 border-b border-slate-200 text-slate-600">Interaction term p-value (e.g., p < 0.05).</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Control Strategies -->
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-indigo-100 -mt-2 select-none">03</span>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">Controlling for Confounding</h2>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mt-6">
+                            <div class="border-l-4 border-sky-500 bg-sky-50 p-6 rounded-r-lg">
+                                <h3 class="font-bold text-sky-900 text-lg mb-3">Study Design Approaches</h3>
+                                <ul class="space-y-3 text-sm text-sky-800">
+                                    <li><strong>Randomization:</strong> The gold standard (RCTs). Balances both measured and unmeasured confounders.</li>
+                                    <li><strong>Restriction:</strong> Limit the study to one stratum (e.g., only non-smokers). Simple, but reduces generalisability.</li>
+                                    <li><strong>Matching:</strong> Pair cases and controls on confounder values. Controls it, but requires complex matched analysis (and prevents studying the matched variable).</li>
+                                </ul>
+                            </div>
+
+                            <div class="border-l-4 border-emerald-500 bg-emerald-50 p-6 rounded-r-lg">
+                                <h3 class="font-bold text-emerald-900 text-lg mb-3">Data Analysis Approaches</h3>
+                                <ul class="space-y-3 text-sm text-emerald-800">
+                                    <li><strong>Stratification:</strong> Compute stratum-specific estimates (Mantel-Haenszel pooling). Best for 1 or 2 categorical confounders.</li>
+                                    <li><strong>Multivariable Regression:</strong> Include confounders as covariates. Can handle many simultaneously.</li>
+                                    <li><strong>Propensity Scores:</strong> Model probability of exposure. Used in large observational studies. Cannot fix unmeasured confounding.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. R Code Reference -->
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-indigo-100 -mt-2 select-none">04</span>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">R Code Quick Reference</h2>
+                        <div class="bg-slate-800 rounded-xl p-6 shadow-sm overflow-x-auto">
+                            <pre class="text-sm font-mono text-slate-300"><span class="text-slate-500"># 1. Crude OR (No adjustment)</span>
+m_crude <- glm(LungCa ~ Smoking, data=df, family=binomial)
+exp(coef(m_crude))
+
+<span class="text-slate-500"># 2. Adjusted OR (Controlling for Confounder 'OccExp')</span>
+m_adj <- glm(LungCa ~ Smoking + OccExp, data=df, family=binomial)
+exp(coef(m_adj))
+
+<span class="text-slate-500"># 3. Testing Effect Modification (Interaction Term)</span>
+m_int <- glm(LungCa ~ Smoking * AgeGrp, data=df, family=binomial)
+summary(m_int) <span class="text-slate-500"># Look at the 'Smoking:AgeGrp' p-value row</span></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="bg-slate-100 px-8 py-6 border-t border-slate-200 flex justify-between items-center text-sm text-slate-500">
+            <a href="index.html" class="hover:text-indigo-600 transition-colors no-print">&larr; Back to Course Portal</a>
+            <span>© 2026 University of Nairobi</span>
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10% Rule & Interaction Evaluator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Inter', sans-serif; } </style>
+</head>
+<body class="bg-slate-50 text-slate-800 p-4 md:p-8 min-h-screen">
+
+    <div class="max-w-4xl mx-auto">
+        <div class="mb-6 flex items-center justify-between">
+            <h1 class="text-2xl font-bold text-slate-900">Third-Variable Evaluator</h1>
+            <a href="index.html" class="text-sm text-sky-600 hover:underline">Back to Portal</a>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-8">
+            <div class="p-6 md:p-8 bg-indigo-900 text-white">
+                <h2 class="text-xl font-bold mb-2">Part 1: The 10% Rule (Testing for Confounding)</h2>
+                <p class="text-indigo-200 text-sm">
+                    Enter the Odds Ratios from your Crude and Adjusted logistic regression models. The tool will calculate the percentage change to determine if the third variable is a meaningful confounder.
+                </p>
+            </div>
+
+            <div class="p-6 md:p-8 grid md:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-1">Crude OR (Unadjusted)</label>
+                        <input type="number" step="0.01" id="crudeOR" class="w-full border-2 border-slate-200 rounded p-3 focus:border-indigo-500 outline-none" placeholder="e.g. 5.09">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-1">Adjusted OR (with Confounder)</label>
+                        <input type="number" step="0.01" id="adjOR" class="w-full border-2 border-slate-200 rounded p-3 focus:border-indigo-500 outline-none" placeholder="e.g. 5.42">
+                    </div>
+                    <button onclick="evaluateConfounding()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg transition-colors">
+                        Check 10% Rule
+                    </button>
+                </div>
+
+                <div id="confoundingResult" class="hidden h-full flex flex-col justify-center p-6 rounded-xl border-2">
+                    <div class="text-sm text-slate-500 uppercase tracking-wide font-bold mb-1">Change calculated:</div>
+                    <div id="pctChange" class="text-4xl font-black mb-2"></div>
+                    <h3 id="confVerdictTitle" class="text-lg font-bold mt-2"></h3>
+                    <p id="confVerdictDesc" class="text-sm mt-1"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="p-6 md:p-8 bg-emerald-900 text-white">
+                <h2 class="text-xl font-bold mb-2">Part 2: Interaction Term (Testing Effect Modification)</h2>
+                <p class="text-emerald-200 text-sm">
+                    Enter the Interaction OR and its p-value from your R regression output (`glm(Y ~ X * M)`).
+                </p>
+            </div>
+
+            <div class="p-6 md:p-8 grid md:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-1">Interaction Term OR</label>
+                        <input type="number" step="0.01" id="intOR" class="w-full border-2 border-slate-200 rounded p-3 focus:border-emerald-500 outline-none" placeholder="e.g. 1.9">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-1">Interaction p-value</label>
+                        <input type="number" step="0.001" id="intPval" class="w-full border-2 border-slate-200 rounded p-3 focus:border-emerald-500 outline-none" placeholder="e.g. 0.03">
+                    </div>
+                    <button onclick="evaluateInteraction()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg transition-colors">
+                        Evaluate Effect Modification
+                    </button>
+                </div>
+
+                <div id="interactionResult" class="hidden h-full flex flex-col justify-center p-6 rounded-xl border-2">
+                    <h3 id="intVerdictTitle" class="text-xl font-bold"></h3>
+                    <p id="intVerdictDesc" class="text-sm mt-2"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function evaluateConfounding() {
+            const crude = parseFloat(document.getElementById('crudeOR').value);
+            const adj = parseFloat(document.getElementById('adjOR').value);
+
+            if (isNaN(crude) || isNaN(adj) || crude === 0) {
+                alert("Please enter valid numbers (Crude OR cannot be 0).");
+                return;
+            }
+
+            const change = (Math.abs(crude - adj) / crude) * 100;
+            const resBox = document.getElementById('confoundingResult');
+            const pctText = document.getElementById('pctChange');
+            const title = document.getElementById('confVerdictTitle');
+            const desc = document.getElementById('confVerdictDesc');
+
+            pctText.innerText = change.toFixed(1) + "%";
+
+            resBox.className = "h-full flex flex-col justify-center p-6 rounded-xl border-2"; // Reset
+
+            if (change > 10) {
+                resBox.classList.add('bg-indigo-50', 'border-indigo-500', 'text-indigo-900');
+                title.innerText = "Meaningful Confounding Present";
+                desc.innerText = "Because the change is greater than 10%, this third variable is considered a meaningful confounder. You should report the Adjusted OR.";
+            } else {
+                resBox.classList.add('bg-slate-50', 'border-slate-300', 'text-slate-800');
+                title.innerText = "Minimal/No Confounding";
+                desc.innerText = "Because the change is less than 10%, this variable does not meet the standard threshold to be classified as a meaningful confounder.";
+            }
+
+            resBox.classList.remove('hidden');
+        }
+
+        function evaluateInteraction() {
+            const or = parseFloat(document.getElementById('intOR').value);
+            const pval = parseFloat(document.getElementById('intPval').value);
+
+            if (isNaN(or) || isNaN(pval)) {
+                alert("Please enter valid numbers for the interaction term.");
+                return;
+            }
+
+            const resBox = document.getElementById('interactionResult');
+            const title = document.getElementById('intVerdictTitle');
+            const desc = document.getElementById('intVerdictDesc');
+
+            resBox.className = "h-full flex flex-col justify-center p-6 rounded-xl border-2"; // Reset
+
+            if (pval < 0.05) {
+                resBox.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-900');
+                title.innerText = "Statistically Significant Effect Modification";
+                
+                let direction = or > 1 ? "amplifies (increases)" : "attenuates (reduces)";
+                desc.innerHTML = `The interaction p-value is < 0.05. This means the third variable is a true effect modifier. <br><br>The interaction OR of <strong>${or}</strong> indicates that the presence of this third variable <em>${direction}</em> the effect of the primary exposure. <br><br><strong>Action:</strong> Do not report a single pooled OR. Report stratum-specific ORs!`;
+            } else {
+                resBox.classList.add('bg-slate-50', 'border-slate-300', 'text-slate-800');
+                title.innerText = "No Significant Effect Modification";
+                desc.innerText = `The interaction p-value (${pval}) is >= 0.05. We cannot reject the null hypothesis of no interaction. Any observed difference in stratum-specific ORs is consistent with sampling variability. You may report the overall adjusted OR.`;
+            }
+
+            resBox.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

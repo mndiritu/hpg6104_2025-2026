@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 3 Practice Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Inter', sans-serif; } </style>
+</head>
+<body class="bg-slate-50 text-slate-800 p-8">
+
+    <div class="max-w-2xl mx-auto">
+        <div class="mb-6 flex items-center justify-between">
+            <h1 class="text-2xl font-bold text-slate-900">Confounding Quiz</h1>
+            <a href="index.html" class="text-sm text-emerald-600 hover:underline">Back to Portal</a>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8" id="quiz-container">
+            <!-- Questions injected here by JS -->
+        </div>
+
+        <div id="result-container" class="hidden mt-6 bg-emerald-50 border border-emerald-200 p-6 rounded-xl text-center">
+            <h2 class="text-2xl font-bold text-emerald-800 mb-2">Quiz Complete!</h2>
+            <p class="text-emerald-700">You scored <span id="score" class="font-bold text-xl"></span> out of 4.</p>
+            <p class="text-sm text-emerald-600 mt-4">"Remember: Confounding is a bias to adjust away, while effect modification is a finding to report!"</p>
+            <button onclick="location.reload()" class="mt-4 bg-emerald-600 text-white px-4 py-2 rounded font-medium hover:bg-emerald-700 transition">Retry Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "A researcher studies the relationship between coffee consumption and pancreatic cancer. Coffee drinkers are more likely to be smokers, and smoking independently increases cancer risk. Is smoking a confounder?",
+                options: [
+                    "No, because coffee does not cause smoking.",
+                    "No, it is an effect modifier.",
+                    "Yes, it satisfies all three criteria for confounding.",
+                    "No, it is a mediator."
+                ],
+                correct: 2,
+                explanation: "Smoking is associated with coffee, independently causes pancreatic cancer, and is NOT on the causal pathway (coffee doesn't cause smoking)."
+            },
+            {
+                question: "In a study of aspirin use and cardiovascular events, the crude OR is 0.62. After adjusting for age, the adjusted OR is 0.59. Applying the 10% rule, is age a confounder?",
+                options: [
+                    "Yes, because the OR decreased.",
+                    "No, because the percentage change is 4.8%, which is < 10%.",
+                    "Yes, because the change is > 10%.",
+                    "No, because the crude OR is < 1.0."
+                ],
+                correct: 1,
+                explanation: "Change = |0.62 - 0.59| / 0.62 = 4.8%. Because 4.8% < 10%, it does not meet the standard threshold for a meaningful confounder."
+            },
+            {
+                question: "In the aspirin study, stratifying by sex reveals OR(women) = 0.45 and OR(men) = 0.78. The interaction term p-value is 0.02. What do you conclude?",
+                options: [
+                    "Sex is a confounder. Report the pooled adjusted OR.",
+                    "Sex is a mediator. Report the crude OR.",
+                    "There is statistically significant effect modification by sex. Report the stratum-specific ORs.",
+                    "The interaction is not significant. Report the crude OR."
+                ],
+                correct: 2,
+                explanation: "Because p=0.02 (<0.05), there is significant effect modification. Aspirin is more protective in women. You must report the stratum-specific results."
+            },
+            {
+                question: "Which of the following is a DESIGN-BASED method to control for confounding?",
+                options: [
+                    "Multivariable Regression",
+                    "Stratification",
+                    "Propensity Score Matching",
+                    "Restriction"
+                ],
+                correct: 3,
+                explanation: "Restriction (limiting the study population to one stratum, e.g., only non-smokers) is a design-based method. Regression and stratification are analytic methods applied after data collection."
+            }
+        ];
+
+        let currentQ = 0;
+        let score = 0;
+        const container = document.getElementById('quiz-container');
+
+        function loadQuestion() {
+            if (currentQ >= questions.length) {
+                container.classList.add('hidden');
+                document.getElementById('result-container').classList.remove('hidden');
+                document.getElementById('score').innerText = score;
+                return;
+            }
+
+            const q = questions[currentQ];
+            let html = `<h2 class="text-lg font-bold text-slate-800 mb-4">Q${currentQ + 1}: ${q.question}</h2><div class="space-y-3">`;
+            
+            q.options.forEach((opt, idx) => {
+                html += `
+                    <button onclick="checkAnswer(${idx})" class="w-full text-left p-4 rounded-lg border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 transition-colors">
+                        ${opt}
+                    </button>
+                `;
+            });
+            html += `</div><div id="feedback" class="mt-4 hidden p-3 rounded text-sm"></div>`;
+            container.innerHTML = html;
+        }
+
+        function checkAnswer(selected) {
+            const q = questions[currentQ];
+            const feedback = document.getElementById('feedback');
+            
+            if(!feedback.classList.contains('hidden')) return;
+
+            feedback.classList.remove('hidden');
+            
+            if (selected === q.correct) {
+                score++;
+                feedback.classList.add('bg-emerald-100', 'text-emerald-800');
+                feedback.innerHTML = `<strong>Correct!</strong> ${q.explanation}`;
+            } else {
+                feedback.classList.add('bg-rose-100', 'text-rose-800');
+                feedback.innerHTML = `<strong>Incorrect.</strong> ${q.explanation}`;
+            }
+
+            setTimeout(() => {
+                currentQ++;
+                loadQuestion();
+            }, 3500); 
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
