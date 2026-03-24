@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 4 Practice Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Inter', sans-serif; } </style>
+</head>
+<body class="bg-slate-50 text-slate-800 p-8">
+
+    <div class="max-w-2xl mx-auto">
+        <div class="mb-6 flex items-center justify-between">
+            <h1 class="text-2xl font-bold text-slate-900">Causal Inference Quiz</h1>
+            <a href="index.html" class="text-sm text-emerald-600 hover:underline">Back to Portal</a>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8" id="quiz-container">
+            <!-- Questions injected here by JS -->
+        </div>
+
+        <div id="result-container" class="hidden mt-6 bg-emerald-50 border border-emerald-200 p-6 rounded-xl text-center">
+            <h2 class="text-2xl font-bold text-emerald-800 mb-2">Quiz Complete!</h2>
+            <p class="text-emerald-700">You scored <span id="score" class="font-bold text-xl"></span> out of 5.</p>
+            <p class="text-sm text-emerald-600 mt-4">"DAGs encode your substantive knowledge about causal structure. The absence of an arrow is as much a causal claim as the presence of one."</p>
+            <button onclick="location.reload()" class="mt-4 bg-emerald-600 text-white px-4 py-2 rounded font-medium hover:bg-emerald-700 transition">Retry Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "A cohort study finds coffee drinkers have a lower risk of type 2 diabetes. A DAG is drawn with 'Physical Activity' having arrows into both 'Coffee Consumption' and 'Diabetes Risk'. What is the most appropriate analytic response?",
+                options: [
+                    "Exclude physical activity as it is not a primary exposure of interest.",
+                    "Adjust for physical activity in the model, as it is a confounder.",
+                    "Stratify by physical activity only if the interaction test is statistically significant.",
+                    "Do not adjust, physical activity is a mediator."
+                ],
+                correct: 1,
+                explanation: "Physical activity has arrows into both coffee (Exposure) and diabetes (Outcome). It is a confounder (Fork structure). Adjusting for it blocks the backdoor path and improves exchangeability."
+            },
+            {
+                question: "A case-control study examines alcohol use and pancreatitis. Controls are drawn from the same hospital. Hospitalisation is affected by both alcohol use AND poor health. What bias is most likely introduced?",
+                options: [
+                    "Confounding by indication",
+                    "Collider bias (Berkson's bias)",
+                    "Recall bias",
+                    "Information bias"
+                ],
+                correct: 1,
+                explanation: "Hospitalisation is a common effect of both heavy alcohol use and poor health (Alcohol → Hospital ← Health). Restricting the study to hospitalised individuals conditions on this collider, opening a spurious path. This is Berkson's bias."
+            },
+            {
+                question: "To estimate the TOTAL causal effect of physical activity on cardiovascular disease, a researcher notes that BMI is reduced by physical activity and independently reduces CVD risk. What is BMI's structural role and the correct strategy?",
+                options: [
+                    "BMI is a confounder; adjust for BMI.",
+                    "BMI is an effect modifier; test for interaction.",
+                    "BMI is a mediator; do NOT adjust for BMI when estimating the total effect.",
+                    "BMI is a collider; adjusting for it induces bias."
+                ],
+                correct: 2,
+                explanation: "BMI lies on the causal pathway (Physical Activity → BMI → CVD). It is a mediator. Adjusting for it would block part of the pathway, underestimating the TOTAL effect."
+            },
+            {
+                question: "A researcher argues smoking causes lung cancer because: (i) RR=15, (ii) replicated across studies, (iii) cessation reduces risk, (iv) smoking ONLY causes lung cancer. Which Bradford Hill criterion provides the WEAKEST evidence here?",
+                options: [
+                    "Strength of association",
+                    "Consistency across studies",
+                    "Experiment",
+                    "Specificity"
+                ],
+                correct: 3,
+                explanation: "Specificity is the weakest criterion. Smoking causes many diseases (COPD, bladder cancer, CVD). Specificity (one exposure = one disease) is rarely met in multifactorial diseases."
+            },
+            {
+                question: "Childhood lead exposure is associated with lower cognitive scores. Which of the following most directly addresses Exchangeability in this observational study?",
+                options: [
+                    "Conducting a larger sample size to increase power.",
+                    "Measuring and adjusting for SES, parental education, and nutrition (all common causes).",
+                    "Restricting the analysis to children with similar baseline cognitive scores.",
+                    "Using a more sensitive cognitive test."
+                ],
+                correct: 1,
+                explanation: "Exchangeability requires adjusting for all common causes (confounders) of the exposure and outcome. Adjusting for SES, education, and nutrition helps achieve conditional exchangeability."
+            }
+        ];
+
+        let currentQ = 0;
+        let score = 0;
+        const container = document.getElementById('quiz-container');
+
+        function loadQuestion() {
+            if (currentQ >= questions.length) {
+                container.classList.add('hidden');
+                document.getElementById('result-container').classList.remove('hidden');
+                document.getElementById('score').innerText = score;
+                return;
+            }
+
+            const q = questions[currentQ];
+            let html = `<h2 class="text-lg font-bold text-slate-800 mb-4">Q${currentQ + 1}: ${q.question}</h2><div class="space-y-3">`;
+            
+            q.options.forEach((opt, idx) => {
+                html += `
+                    <button onclick="checkAnswer(${idx})" class="w-full text-left p-4 rounded-lg border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 transition-colors">
+                        ${opt}
+                    </button>
+                `;
+            });
+            html += `</div><div id="feedback" class="mt-4 hidden p-3 rounded text-sm"></div>`;
+            container.innerHTML = html;
+        }
+
+        function checkAnswer(selected) {
+            const q = questions[currentQ];
+            const feedback = document.getElementById('feedback');
+            
+            if(!feedback.classList.contains('hidden')) return;
+
+            feedback.classList.remove('hidden');
+            
+            if (selected === q.correct) {
+                score++;
+                feedback.classList.add('bg-emerald-100', 'text-emerald-800');
+                feedback.innerHTML = `<strong>Correct!</strong> ${q.explanation}`;
+            } else {
+                feedback.classList.add('bg-rose-100', 'text-rose-800');
+                feedback.innerHTML = `<strong>Incorrect.</strong> ${q.explanation}`;
+            }
+
+            setTimeout(() => {
+                currentQ++;
+                loadQuestion();
+            }, 5000); // 5 seconds to read longer explanations
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
