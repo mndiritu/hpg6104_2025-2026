@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 5 Practice Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Inter', sans-serif; } </style>
+</head>
+<body class="bg-slate-50 text-slate-800 p-8">
+
+    <div class="max-w-2xl mx-auto">
+        <div class="mb-6 flex items-center justify-between">
+            <h1 class="text-2xl font-bold text-slate-900">Advanced Control Quiz</h1>
+            <a href="index.html" class="text-sm text-emerald-600 hover:underline">Back to Portal</a>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8" id="quiz-container"></div>
+
+        <div id="result-container" class="hidden mt-6 bg-emerald-50 border border-emerald-200 p-6 rounded-xl text-center">
+            <h2 class="text-2xl font-bold text-emerald-800 mb-2">Quiz Complete!</h2>
+            <p class="text-emerald-700">You scored <span id="score" class="font-bold text-xl"></span> out of 4.</p>
+            <p class="text-sm text-emerald-600 mt-4">"No single method is perfect—transparent reporting and sensitivity analysis strengthen causal claims."</p>
+            <button onclick="location.reload()" class="mt-4 bg-emerald-600 text-white px-4 py-2 rounded font-medium hover:bg-emerald-700 transition">Retry Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Which statistical model MUST be used if you matched cases and controls 1:1 on age and sex in the design phase?",
+                options: ["Standard Logistic Regression", "Linear Regression", "Conditional Logistic Regression", "Poisson Regression"],
+                correct: 2,
+                explanation: "Individual matching introduces correlation within pairs. Conditional logistic regression correctly accounts for this dependent structure."
+            },
+            {
+                question: "A researcher reports an SMR of 1.45 for a study population. How should this be interpreted?",
+                options: ["Mortality is 45% lower than expected.", "The crude mortality rate is 1.45 per 1,000.", "Mortality is 45% higher than expected based on standard rates.", "The population is 1.45 times younger than the standard population."],
+                correct: 2,
+                explanation: "SMR = Observed / Expected. 1.45 means there were 45% more deaths observed than expected."
+            },
+            {
+                question: "What is the primary advantage of Inverse Probability Treatment Weighting (IPTW) over standard Propensity Score Matching?",
+                options: ["It handles unmeasured confounding.", "It estimates the Average Treatment Effect (ATE) for the full population.", "It works better for very small samples.", "It eliminates the need for balance checks."],
+                correct: 1,
+                explanation: "Matching often targets the ATT (Treated only), while IPTW reweights the whole sample to estimate the population-average effect (ATE)."
+            },
+            {
+                question: "A study finds RR = 1.85. The calculated E-value is 3.10. What does this mean?",
+                options: ["The result is statistically insignificant.", "A hidden confounder would need an RR of 3.10 with both exposure and outcome to explain away the effect.", "The study has 3.10 times too much bias.", "The effect is 3.10 times stronger than chance."],
+                correct: 1,
+                explanation: "The E-value quantifies the strength a hidden confounder must have to nullify the observed association."
+            }
+        ];
+
+        let currentQ = 0; let score = 0;
+        const container = document.getElementById('quiz-container');
+
+        function loadQuestion() {
+            if (currentQ >= questions.length) {
+                container.classList.add('hidden');
+                document.getElementById('result-container').classList.remove('hidden');
+                document.getElementById('score').innerText = score;
+                return;
+            }
+            const q = questions[currentQ];
+            let html = `<h2 class="text-lg font-bold text-slate-800 mb-4">Q${currentQ + 1}: ${q.question}</h2><div class="space-y-3">`;
+            q.options.forEach((opt, idx) => {
+                html += `<button onclick="checkAnswer(${idx})" class="w-full text-left p-4 rounded-lg border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 transition-colors">${opt}</button>`;
+            });
+            html += `</div><div id="feedback" class="mt-4 hidden p-3 rounded text-sm"></div>`;
+            container.innerHTML = html;
+        }
+
+        function checkAnswer(selected) {
+            const q = questions[currentQ];
+            const feedback = document.getElementById('feedback');
+            if(!feedback.classList.contains('hidden')) return;
+            feedback.classList.remove('hidden');
+            if (selected === q.correct) {
+                score++;
+                feedback.className = "mt-4 p-3 rounded text-sm bg-emerald-100 text-emerald-800";
+                feedback.innerHTML = `<strong>Correct!</strong> ${q.explanation}`;
+            } else {
+                feedback.className = "mt-4 p-3 rounded text-sm bg-rose-100 text-rose-800";
+                feedback.innerHTML = `<strong>Incorrect.</strong> ${q.explanation}`;
+            }
+            setTimeout(() => { currentQ++; loadQuestion(); }, 3500);
+        }
+        loadQuestion();
+    </script>
+</body>
+</html>

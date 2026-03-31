@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 5: Advanced Confounding Control</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style> 
+        body { font-family: 'Inter', sans-serif; } 
+        @media print { .no-print { display: none; } }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="max-w-5xl mx-auto my-8 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        
+        <!-- Header -->
+        <div class="bg-sky-900 px-8 py-10 text-white">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h2 class="text-sky-200 text-sm font-bold uppercase tracking-wide mb-2">HPG 6104 • Week 5</h2>
+                    <h1 class="text-3xl font-bold">Advanced Confounding Control</h1>
+                    <p class="text-sky-200 mt-2">Matching, Standardization, Propensity Scores & Sensitivity Analysis</p>
+                </div>
+                <button onclick="window.print()" class="no-print bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors border border-white/20">
+                    Print PDF
+                </button>
+            </div>
+        </div>
+
+        <div class="p-10 space-y-12">
+
+            <!-- 1. Matching -->
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-sky-100 -mt-2 select-none">01</span>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">Matching (Design Phase)</h2>
+                        <p class="text-slate-600 mb-6">Matching ensures comparison groups are balanced on known confounders <em>before</em> data collection. Essential in case-control studies.</p>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                                <h3 class="font-bold text-sky-800 text-sm uppercase mb-2">Individual Matching</h3>
+                                <p class="text-xs text-slate-600">Match each Case to 1+ Controls with identical confounder values (e.g., 50yo Male Smoker matched to 50yo Male Smoker).</p>
+                                <p class="mt-2 text-xs font-bold text-rose-600 underline">Requires Conditional Logistic Regression!</p>
+                            </div>
+                            <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                                <h3 class="font-bold text-sky-800 text-sm uppercase mb-2">Frequency Matching</h3>
+                                <p class="text-xs text-slate-600">Ensure the <em>distribution</em> is similar at the group level (e.g., 30% Cases and 30% Controls are aged 50-60).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Standardization -->
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-sky-100 -mt-2 select-none">02</span>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">Standardization</h2>
+                        <p class="text-sm text-slate-600 mb-6">Comparing rates between populations with different age/sex structures.</p>
+                        
+                        <div class="overflow-x-auto rounded-lg border border-slate-200">
+                            <table class="w-full text-left text-sm border-collapse">
+                                <thead class="bg-slate-50">
+                                    <tr>
+                                        <th class="p-4 border-b">Method</th>
+                                        <th class="p-4 border-b">starting Point</th>
+                                        <th class="p-4 border-b">Output</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="p-4 border-b font-bold">Direct</td>
+                                        <td class="p-4 border-b">Study population rates</td>
+                                        <td class="p-4 border-b">Age-adjusted Rate</td>
+                                    </tr>
+                                    <tr class="bg-slate-50">
+                                        <td class="p-4 border-b font-bold">Indirect</td>
+                                        <td class="p-4 border-b">Standard population rates</td>
+                                        <td class="p-4 border-b">SMR (Observed/Expected)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Propensity Scores -->
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-sky-100 -mt-2 select-none">03</span>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">Propensity Score Methods</h2>
+                        <p class="text-sm text-slate-600 mb-4">The Propensity Score (PS) is the probability of being exposed given measured confounders. It collapses high-dimensional data into one scalar.</p>
+                        
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="p-4 border-l-4 border-emerald-500 bg-emerald-50">
+                                <h4 class="font-bold text-emerald-900 text-sm">PS Matching (targets ATT)</h4>
+                                <p class="text-xs text-emerald-800">Match individuals with similar probabilities. Standard caliper: 0.1 - 0.25 SD of logit PS.</p>
+                            </div>
+                            <div class="p-4 border-l-4 border-indigo-500 bg-indigo-50">
+                                <h4 class="font-bold text-indigo-900 text-sm">IPTW (targets ATE)</h4>
+                                <p class="text-xs text-indigo-800">Inverse Probability Treatment Weighting. Reweights sample to create a pseudo-population where exposure is independent of covariates.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Sensitivity -->
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-sky-100 -mt-2 select-none">04</span>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">Sensitivity Analysis: The E-value</h2>
+                        <div class="bg-slate-800 rounded-xl p-6 text-white">
+                            <p class="text-sm mb-4">"How strong would an unmeasured confounder need to be to explain away my observed effect?"</p>
+                            <div class="font-mono bg-slate-900 p-4 rounded text-center text-sky-400 text-xl">
+                                E-value = RR + &radic;(RR &times; (RR - 1))
+                            </div>
+                            <p class="text-xs text-slate-400 mt-4 italic">Example: If observed RR = 2.5, E-value = 4.44. A hidden confounder needs RR &ge; 4.44 with both exposure and outcome to nullify the result.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="bg-slate-100 px-8 py-6 border-t border-slate-200 flex justify-between items-center text-sm text-slate-500">
+            <a href="index.html" class="hover:text-sky-600 transition-colors no-print">&larr; Back to Portal</a>
+            <span>© University of Nairobi</span>
+        </div>
+    </div>
+
+</body>
+</html>
