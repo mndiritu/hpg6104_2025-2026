@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 6 Practice Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Inter', sans-serif; } </style>
+</head>
+<body class="bg-slate-50 text-slate-800 p-8">
+
+    <div class="max-w-2xl mx-auto">
+        <div class="mb-6 flex items-center justify-between">
+            <h1 class="text-2xl font-bold text-slate-900">Logistic Regression Quiz</h1>
+            <a href="index.html" class="text-sm text-emerald-600 hover:underline">Back to Portal</a>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8" id="quiz-container"></div>
+
+        <div id="result-container" class="hidden mt-6 bg-emerald-50 border border-emerald-200 p-6 rounded-xl text-center">
+            <h2 class="text-2xl font-bold text-emerald-800 mb-2">Quiz Complete!</h2>
+            <p class="text-emerald-700">You scored <span id="score" class="font-bold text-xl"></span> out of 4.</p>
+            <p class="text-sm text-emerald-600 mt-4">"Statistical significance tells you if an association exists; the Odds Ratio tells you how strong it is."</p>
+            <button onclick="location.reload()" class="mt-4 bg-emerald-600 text-white px-4 py-2 rounded font-medium hover:bg-emerald-700 transition">Retry Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "In a model of smoking and lung cancer, the coefficient (Estimate) for pack-years is 0.055. What is the Odds Ratio for a 1-unit increase in pack-years?",
+                options: ["0.055", "1.00", "1.06", "1.73"],
+                correct: 2,
+                explanation: "OR = exp(0.055) ≈ 1.056 or 1.06. This means a 6% increase in odds per pack-year."
+            },
+            {
+                question: "A researcher fits a model with 12 predictors, but only 80 individuals developed the disease outcome. Which assumption is most likely violated?",
+                options: ["Linearity in the logit", "Independence of observations", "Adequate sample size (EPV rule)", "Binary outcome"],
+                correct: 2,
+                explanation: "EPV = 80 events / 12 variables = 6.7. This is below the Rule of 10, which can lead to unstable estimates."
+            },
+            {
+                question: "A crude OR is 2.4 and the adjusted OR is 1.8. What does this suggest?",
+                options: ["Negative confounding", "Positive confounding (the crude estimate was inflated)", "No confounding", "Effect modification"],
+                correct: 1,
+                explanation: "Change = |2.4 - 1.8|/2.4 = 25%. Since 25% > 10%, confounding is present. Because the crude was higher than adjusted, it was positive confounding."
+            },
+            {
+                question: "When is the Odds Ratio (OR) from a logistic regression model a good approximation of the Relative Risk (RR)?",
+                options: ["Always", "When the outcome is common (> 20%)", "When the outcome is rare (< 10%)", "When the sample size is small"],
+                correct: 2,
+                explanation: "The 'Rare Disease Assumption' holds that OR ≈ RR when the outcome prevalence is low. If the outcome is common, the OR overestimates the RR."
+            }
+        ];
+
+        let currentQ = 0; let score = 0;
+        const container = document.getElementById('quiz-container');
+
+        function loadQuestion() {
+            if (currentQ >= questions.length) {
+                container.classList.add('hidden');
+                document.getElementById('result-container').classList.remove('hidden');
+                document.getElementById('score').innerText = score;
+                return;
+            }
+            const q = questions[currentQ];
+            let html = `<h2 class="text-lg font-bold text-slate-800 mb-4">Q${currentQ + 1}: ${q.question}</h2><div class="space-y-3">`;
+            q.options.forEach((opt, idx) => {
+                html += `<button onclick="checkAnswer(${idx})" class="w-full text-left p-4 rounded-lg border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 transition-colors">${opt}</button>`;
+            });
+            html += `</div><div id="feedback" class="mt-4 hidden p-3 rounded text-sm"></div>`;
+            container.innerHTML = html;
+        }
+
+        function checkAnswer(selected) {
+            const q = questions[currentQ];
+            const feedback = document.getElementById('feedback');
+            if(!feedback.classList.contains('hidden')) return;
+            feedback.classList.remove('hidden');
+            if (selected === q.correct) {
+                score++;
+                feedback.className = "mt-4 p-3 rounded text-sm bg-emerald-100 text-emerald-800";
+                feedback.innerHTML = `<strong>Correct!</strong> ${q.explanation}`;
+            } else {
+                feedback.className = "mt-4 p-3 rounded text-sm bg-rose-100 text-rose-800";
+                feedback.innerHTML = `<strong>Incorrect.</strong> ${q.explanation}`;
+            }
+            setTimeout(() => { currentQ++; loadQuestion(); }, 3500);
+        }
+        loadQuestion();
+    </script>
+</body>
+</html>

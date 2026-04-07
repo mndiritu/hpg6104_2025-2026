@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logistic Regression Visualizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Inter', sans-serif; } </style>
+</head>
+<body class="bg-slate-50 text-slate-800 p-4 md:p-8 min-h-screen">
+
+    <div class="max-w-4xl mx-auto">
+        <div class="mb-6 flex items-center justify-between">
+            <h1 class="text-2xl font-bold text-slate-900">Odds Ratio & Probability Visualizer</h1>
+            <a href="index.html" class="text-sm text-sky-600 hover:underline">Back to Portal</a>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-8">
+            <div class="p-6 md:p-8 bg-slate-900 text-white">
+                <p class="text-slate-300">
+                    See how a regression coefficient (&beta;) translates into an <strong>Odds Ratio</strong> and shifts the <strong>Probability</strong> of disease.
+                </p>
+            </div>
+
+            <div class="p-8 grid md:grid-cols-2 gap-12">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-1">Baseline Probability (p₀)</label>
+                        <p class="text-xs text-slate-500 mb-2">The risk of disease for someone with a predictor value of 0.</p>
+                        <input type="range" id="baseProb" min="0.01" max="0.99" step="0.01" value="0.10" oninput="updateUI()" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                        <div class="text-center font-bold text-indigo-600 mt-2" id="baseProbVal">10%</div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-1">Regression Coefficient (&beta;₁)</label>
+                        <p class="text-xs text-slate-500 mb-2">The 'Estimate' from your R output.</p>
+                        <input type="range" id="beta" min="-3" max="3" step="0.01" value="1.0" oninput="updateUI()" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600">
+                        <div class="text-center font-bold text-emerald-600 mt-2" id="betaVal">1.00</div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 rounded-xl p-8 border border-slate-200 flex flex-col justify-center items-center text-center">
+                    <div class="mb-6">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-1">Calculated Odds Ratio</span>
+                        <span id="resOR" class="text-5xl font-black text-emerald-600">2.72</span>
+                    </div>
+
+                    <div class="w-full h-4 bg-slate-200 rounded-full overflow-hidden flex">
+                        <div id="barBase" class="h-full bg-slate-400" style="width: 10%;"></div>
+                        <div id="barNew" class="h-full bg-emerald-500" style="width: 13.2%;"></div>
+                    </div>
+                    
+                    <div class="mt-6 space-y-2 w-full">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-slate-500">Baseline Probability:</span>
+                            <span id="txtBase" class="font-bold">10.0%</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-slate-500">New Probability:</span>
+                            <span id="txtNew" class="font-bold text-emerald-600">23.2%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-xl">
+            <h4 class="font-bold text-indigo-900 mb-1 italic">Why does the increase look different?</h4>
+            <p class="text-sm text-indigo-800">
+                Notice that while the <strong>Odds Ratio</strong> stays constant for a given &beta;, the actual jump in <strong>Probability</strong> depends on where you start (the baseline risk). This is why logistic regression uses a non-linear S-curve!
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function updateUI() {
+            const p0 = parseFloat(document.getElementById('baseProb').value);
+            const beta = parseFloat(document.getElementById('beta').value);
+            
+            document.getElementById('baseProbVal').innerText = (p0 * 100).toFixed(0) + "%";
+            document.getElementById('betaVal').innerText = beta.toFixed(2);
+
+            // Calculation
+            const or = Math.exp(beta);
+            
+            // Baseline Log-Odds
+            const logitP0 = Math.log(p0 / (1 - p0));
+            // New Log-Odds
+            const logitP1 = logitP0 + beta;
+            // Back to Probability
+            const p1 = 1 / (1 + Math.exp(-logitP1));
+
+            // Display
+            document.getElementById('resOR').innerText = or.toFixed(2);
+            document.getElementById('txtBase').innerText = (p0 * 100).toFixed(1) + "%";
+            document.getElementById('txtNew').innerText = (p1 * 100).toFixed(1) + "%";
+            
+            // Bars (p1 is total width, barBase is p0 part)
+            document.getElementById('barBase').style.width = (p0 * 100) + "%";
+            document.getElementById('barNew').style.width = Math.max(0, (p1 - p0) * 100) + "%";
+            // Handle negative beta (p1 < p0)
+            if (p1 < p0) {
+                document.getElementById('barBase').style.width = (p1 * 100) + "%";
+                document.getElementById('barNew').style.width = "0%";
+            }
+        }
+    </script>
+</body>
+</html>

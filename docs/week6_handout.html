@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 6: Logistic Regression</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style> 
+        body { font-family: 'Inter', sans-serif; } 
+        @media print { .no-print { display: none; } }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="max-w-5xl mx-auto my-8 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        
+        <!-- Header -->
+        <div class="bg-indigo-900 px-8 py-10 text-white">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h2 class="text-indigo-200 text-sm font-bold uppercase tracking-wide mb-2">HPG 6104 • Epidemiological Methods II</h2>
+                    <h1 class="text-3xl font-bold">Logistic Regression in Epidemiology</h1>
+                    <p class="text-indigo-200 mt-2">Week 6 Student Companion Guide</p>
+                </div>
+                <button onclick="window.print()" class="no-print bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors border border-white/20">
+                    Print PDF
+                </button>
+            </div>
+        </div>
+
+        <div class="p-10 space-y-12">
+
+            <!-- 1. Why Logistic? -->
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-indigo-100 -mt-2 select-none">01</span>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">Why Logistic Regression?</h2>
+                        <p class="text-slate-600 mb-6">Epidemiologic outcomes are often binary (Disease/No Disease). Linear regression is inappropriate because it can predict probabilities < 0 or > 1. Logistic regression models the <strong>logit</strong> (log-odds), ensuring predictions fall between 0 and 1.</p>
+                        
+                        <div class="overflow-x-auto rounded-lg border border-slate-200">
+                            <table class="w-full text-left text-sm border-collapse">
+                                <thead class="bg-slate-50">
+                                    <tr>
+                                        <th class="p-4 border-b">Feature</th>
+                                        <th class="p-4 border-b">Linear Regression</th>
+                                        <th class="p-4 border-b">Logistic Regression</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="p-4 border-b font-semibold">Outcome Type</td>
+                                        <td class="p-4 border-b">Continuous (e.g., BP)</td>
+                                        <td class="p-4 border-b font-bold text-indigo-600">Binary (0/1)</td>
+                                    </tr>
+                                    <tr class="bg-slate-50">
+                                        <td class="p-4 border-b font-semibold">Coefficient</td>
+                                        <td class="p-4 border-b">Change in mean Y</td>
+                                        <td class="p-4 border-b">Change in log-odds</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-4 border-b font-semibold">Effect Measure</td>
+                                        <td class="p-4 border-b">Coefficient (&beta;)</td>
+                                        <td class="p-4 border-b font-bold text-emerald-600">Odds Ratio (exp[&beta;])</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Interpretation -->
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-indigo-100 -mt-2 select-none">02</span>
+                    <div class="w-full space-y-6">
+                        <h2 class="text-2xl font-bold text-slate-900">Interpreting Model Output</h2>
+                        <div class="bg-slate-800 rounded-xl p-6 text-white font-mono text-sm shadow-inner">
+                            <span class="text-slate-400"># The Equation</span><br>
+                            logit(p) = &beta;₀ + &beta;₁X₁ + ... + &beta;ₖXₖ<br><br>
+                            <span class="text-slate-400"># Getting the OR</span><br>
+                            OR = exp(&beta;₁)<br>
+                            95% CI = exp(&beta;₁ &plusmn; 1.96 * SE)
+                        </div>
+                        
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="p-4 border border-rose-200 bg-rose-50 rounded-lg">
+                                <h4 class="font-bold text-rose-900 text-xs uppercase">OR < 1</h4>
+                                <p class="text-xs text-rose-800">Protective effect. Every unit increase in X decreases the odds of the outcome.</p>
+                            </div>
+                            <div class="p-4 border border-slate-200 bg-slate-50 rounded-lg">
+                                <h4 class="font-bold text-slate-900 text-xs uppercase">OR = 1</h4>
+                                <p class="text-xs text-slate-800">No association. The exposure does not affect the odds of the outcome.</p>
+                            </div>
+                            <div class="p-4 border border-emerald-200 bg-emerald-50 rounded-lg">
+                                <h4 class="font-bold text-emerald-900 text-xs uppercase">OR > 1</h4>
+                                <p class="text-xs text-emerald-800">Increased risk. Every unit increase in X increases the odds of the outcome.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Assumptions Checklist -->
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-indigo-100 -mt-2 select-none">03</span>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">Assumptions Checklist</h2>
+                        <div class="space-y-3">
+                            <div class="p-4 bg-slate-50 rounded-lg border border-slate-200 flex items-start gap-3">
+                                <div class="w-5 h-5 mt-1 bg-indigo-500 rounded text-white flex items-center justify-center text-xs font-bold">1</div>
+                                <div>
+                                    <strong class="text-sm block">Binary Outcome:</strong>
+                                    <span class="text-xs text-slate-600">The dependent variable must be strictly dichotomous (0 or 1).</span>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-slate-50 rounded-lg border border-slate-200 flex items-start gap-3">
+                                <div class="w-5 h-5 mt-1 bg-indigo-500 rounded text-white flex items-center justify-center text-xs font-bold">2</div>
+                                <div>
+                                    <strong class="text-sm block">Independence of Observations:</strong>
+                                    <span class="text-xs text-slate-600">Outcome events must not be clustered. Use mixed models if data are nested.</span>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-slate-50 rounded-lg border border-slate-200 flex items-start gap-3">
+                                <div class="w-5 h-5 mt-1 bg-indigo-500 rounded text-white flex items-center justify-center text-xs font-bold">3</div>
+                                <div>
+                                    <strong class="text-sm block">Linearity in the Logit:</strong>
+                                    <span class="text-xs text-slate-600">Continuous predictors must have a linear relationship with the <em>log-odds</em>, not the probability. Check via Box-Tidwell test.</span>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-rose-50 rounded-lg border border-rose-200 flex items-start gap-3">
+                                <div class="w-5 h-5 mt-1 bg-rose-500 rounded text-white flex items-center justify-center text-xs font-bold">4</div>
+                                <div>
+                                    <strong class="text-sm block">Adequate Sample Size (EPV Rule):</strong>
+                                    <span class="text-xs text-rose-800 font-bold">The Rule of 10: Aim for &ge; 10 outcome events per predictor variable in the model.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. R Workflow -->
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-indigo-100 -mt-2 select-none">04</span>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">R Implementation</h2>
+                        <div class="bg-slate-800 rounded-xl p-6 text-slate-300 font-mono text-sm overflow-x-auto">
+                            <span class="text-slate-500"># 1. Fit the model</span><br>
+                            model <- glm(diabetes ~ glucose + age + mass, <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data = df, <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;family = binomial(link = 'logit'))<br><br>
+                            <span class="text-slate-500"># 2. Extract ORs and 95% CIs</span><br>
+                            exp(cbind(OR = coef(model), confint(model)))
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="bg-slate-100 px-8 py-6 border-t border-slate-200 flex justify-between items-center text-sm text-slate-500">
+            <a href="index.html" class="hover:text-indigo-600 transition-colors no-print">&larr; Back to Portal</a>
+            <span>© University of Nairobi</span>
+        </div>
+    </div>
+
+</body>
+</html>
