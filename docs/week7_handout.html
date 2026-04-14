@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 7: Epidemiologic Study Designs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style> 
+        body { font-family: 'Inter', sans-serif; } 
+        @media print { .no-print { display: none; } }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="max-w-5xl mx-auto my-8 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        
+        <!-- Header -->
+        <div class="bg-indigo-900 px-8 py-10 text-white">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h2 class="text-indigo-200 text-sm font-bold uppercase tracking-wide mb-2">HPG 6104 • Week 7</h2>
+                    <h1 class="text-3xl font-bold">Epidemiologic Study Designs</h1>
+                    <p class="text-indigo-200 mt-2">Strengths, Biases, and Causal Utility</p>
+                </div>
+                <button onclick="window.print()" class="no-print bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors border border-white/20">
+                    Print / Save PDF
+                </button>
+            </div>
+        </div>
+
+        <div class="p-10 space-y-12">
+
+            <!-- 1. Causal Lens -->
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-indigo-100 -mt-2 select-none">01</span>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">The Causal Lens</h2>
+                        <p class="text-slate-600 mb-6">We don't just ask "which design is better?" We ask: "Under what assumptions does this design allow a valid causal inference?"</p>
+                        
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="p-4 border-l-4 border-indigo-500 bg-indigo-50">
+                                <h4 class="font-bold text-indigo-900 text-sm">Exchangeability</h4>
+                                <p class="text-xs text-indigo-800">Comparison groups must have the same outcome distribution if exposure were removed.</p>
+                            </div>
+                            <div class="p-4 border-l-4 border-emerald-500 bg-emerald-50">
+                                <h4 class="font-bold text-emerald-900 text-sm">Temporality</h4>
+                                <p class="text-xs text-emerald-800">The essential criterion: the cause <em>must</em> precede the effect.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Design properties -->
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-indigo-100 -mt-2 select-none">02</span>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">Comparative Summary of Designs</h2>
+                        <div class="overflow-x-auto rounded-lg border border-slate-200">
+                            <table class="w-full text-left text-sm border-collapse">
+                                <thead class="bg-slate-50 text-slate-700">
+                                    <tr>
+                                        <th class="p-4 border-b">Design</th>
+                                        <th class="p-4 border-b">Causal Utility</th>
+                                        <th class="p-4 border-b">Primary Bias Risk</th>
+                                        <th class="p-4 border-b">Key Measures</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="p-4 border-b font-bold">Cross-Sectional</td>
+                                        <td class="p-4 border-b text-rose-600">Low</td>
+                                        <td class="p-4 border-b">Reverse causation, Survival bias</td>
+                                        <td class="p-4 border-b">Prev. Ratio (PR)</td>
+                                    </tr>
+                                    <tr class="bg-slate-50">
+                                        <td class="p-4 border-b font-bold">Case-Control</td>
+                                        <td class="p-4 border-b text-orange-600">Medium</td>
+                                        <td class="p-4 border-b">Recall, Selection, Collider bias</td>
+                                        <td class="p-4 border-b">Odds Ratio (OR)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-4 border-b font-bold">Cohort</td>
+                                        <td class="p-4 border-b text-emerald-600 font-semibold">High</td>
+                                        <td class="p-4 border-b">Loss to Follow-up (LTFU)</td>
+                                        <td class="p-4 border-b">RR, HR, IR</td>
+                                    </tr>
+                                    <tr class="bg-slate-50">
+                                        <td class="p-4 border-b font-bold">RCT</td>
+                                        <td class="p-4 border-b text-emerald-700 font-bold">Very High</td>
+                                        <td class="p-4 border-b">Attrition, Non-compliance</td>
+                                        <td class="p-4 border-b">RR, RD, NNT</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Ecological & Multilevel -->
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-indigo-100 -mt-2 select-none">03</span>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">Beyond the Individual</h2>
+                        <div class="space-y-6">
+                            <div class="bg-rose-50 border-l-4 border-rose-500 p-6 rounded-r-lg">
+                                <h3 class="font-bold text-rose-900 text-sm uppercase mb-2">Ecological Fallacy</h3>
+                                <p class="text-sm text-rose-800 leading-relaxed">The error of inferring individual-level associations from group-level correlations (e.g., country-level sugar consumption vs diabetes). Confounding at the group level makes these unsuitable for causal claims.</p>
+                            </div>
+                            <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
+                                <h3 class="font-bold text-indigo-900 text-sm uppercase mb-2">Multilevel Modeling (ICC)</h3>
+                                <p class="text-sm text-indigo-800 leading-relaxed">Accounts for people nested in environments (schools, clinics). The <strong>Intraclass Correlation Coefficient (ICC)</strong> tells us how much context matters: ICC > 0.10 indicates substantial clustering requiring multilevel analysis.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Takeaway -->
+            <section class="bg-indigo-900 text-white p-8 rounded-xl">
+                <h3 class="text-xl font-bold mb-4">Summary Memo</h3>
+                <ul class="list-disc list-inside space-y-2 text-indigo-100 text-sm">
+                    <li>There is no perfect design—only deliberate compromise.</li>
+                    <li>Always assess <strong>Temporality</strong>: Did the exposure precede the outcome?</li>
+                    <li>In Case-Control studies, define your <strong>Source Population</strong> strictly to avoid selection bias.</li>
+                    <li>Use <strong>DAGs</strong> to decide which variables to adjust for—and which (colliders) to avoid.</li>
+                </ul>
+            </section>
+
+        </div>
+
+        <div class="bg-slate-100 px-8 py-6 border-t border-slate-200 flex justify-between items-center text-sm text-slate-500">
+            <a href="index.html" class="hover:text-indigo-600 transition-colors no-print">&larr; Back to Portal</a>
+            <span>© University of Nairobi</span>
+        </div>
+    </div>
+
+</body>
+</html>

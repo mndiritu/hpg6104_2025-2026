@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 7 Practice Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Inter', sans-serif; } </style>
+</head>
+<body class="bg-slate-50 text-slate-800 p-8">
+
+    <div class="max-w-2xl mx-auto">
+        <div class="mb-6 flex items-center justify-between">
+            <h1 class="text-2xl font-bold text-slate-900">Study Design Quiz</h1>
+            <a href="index.html" class="text-sm text-emerald-600 hover:underline">Back to Portal</a>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8" id="quiz-container"></div>
+
+        <div id="result-container" class="hidden mt-6 bg-emerald-50 border border-emerald-200 p-6 rounded-xl text-center">
+            <h2 class="text-2xl font-bold text-emerald-800 mb-2">Quiz Complete!</h2>
+            <p class="text-emerald-700">You scored <span id="score" class="font-bold text-xl"></span> out of 4.</p>
+            <p class="text-sm text-emerald-600 mt-4">"A poorly executed RCT may yield weaker causal evidence than a well-designed, DAG-informed observational cohort."</p>
+            <button onclick="location.reload()" class="mt-4 bg-emerald-600 text-white px-4 py-2 rounded font-medium hover:bg-emerald-700 transition">Retry Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "The Kenya Demographic and Health Survey (KDHS) finds that physical activity is associated with lower depression. A student argues this proves exercise prevents depression. What bias most likely invalidates this claim?",
+                options: ["Recall bias", "Reverse causation (depression causes inactivity)", "Survival bias", "Selection bias"],
+                correct: 1,
+                explanation: "Because KDHS is cross-sectional, exposure and outcome are measured simultaneously. We cannot tell if inactivity caused depression or if depression led to lower activity levels."
+            },
+            {
+                question: "In a cohort study of 4,500 adults followed for 8 years, 18% were lost to follow-up. This loss was predominantly among younger males who consumed more alcohol. What analytic approach addresses this?",
+                options: ["Standard Logistic Regression", "Chi-Square Testing", "Inverse Probability of Censoring Weighting (IPCW)", "Instrumental Variable Analysis"],
+                correct: 2,
+                explanation: "Non-random loss to follow-up causes 'informative censoring'. IPCW upweights the remaining participants who look like those lost to recover an unbiased estimate."
+            },
+            {
+                question: "A hospital-based case-control study recruits controls from an orthopedic ward to study lymphoma risk. This design is highly vulnerable to which type of error?",
+                options: ["Ecological Fallacy", "Performance Bias", "Selection Bias / Collider Bias", "Consistency violation"],
+                correct: 2,
+                explanation: "Using hospital controls (conditioning on hospitalization) often induces collider bias (Berkson's bias) because the causes of lymphoma and the causes of orthopedic injuries may both influence the likelihood of being in the hospital."
+            },
+            {
+                question: "An ecological analysis finds that counties in Kenya with higher per-capita sugar consumption have higher diabetes prevalence. Why is it wrong to conclude that sugar causes diabetes from this data alone?",
+                options: ["Randomization was not used", "The Ecological Fallacy (group-level correlations don't equal individual-level associations)", "Sample size was too small", "Survival bias"],
+                correct: 1,
+                explanation: "Group-level correlations (ecological studies) are prone to confounding at the group level (e.g., urbanization, sedentary jobs). Individual-level associations cannot be inferred from group data."
+            }
+        ];
+
+        let currentQ = 0; let score = 0;
+        const container = document.getElementById('quiz-container');
+
+        function loadQuestion() {
+            if (currentQ >= questions.length) {
+                container.classList.add('hidden');
+                document.getElementById('result-container').classList.remove('hidden');
+                document.getElementById('score').innerText = score;
+                return;
+            }
+            const q = questions[currentQ];
+            let html = `<h2 class="text-lg font-bold text-slate-800 mb-4">Q${currentQ + 1}: ${q.question}</h2><div class="space-y-3">`;
+            q.options.forEach((opt, idx) => {
+                html += `<button onclick="checkAnswer(${idx})" class="w-full text-left p-4 rounded-lg border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 transition-colors">${opt}</button>`;
+            });
+            html += `</div><div id="feedback" class="mt-4 hidden p-3 rounded text-sm"></div>`;
+            container.innerHTML = html;
+        }
+
+        function checkAnswer(selected) {
+            const q = questions[currentQ];
+            const feedback = document.getElementById('feedback');
+            if(!feedback.classList.contains('hidden')) return;
+            feedback.classList.remove('hidden');
+            if (selected === q.correct) {
+                score++;
+                feedback.className = "mt-4 p-3 rounded text-sm bg-emerald-100 text-emerald-800";
+                feedback.innerHTML = `<strong>Correct!</strong> ${q.explanation}`;
+            } else {
+                feedback.className = "mt-4 p-3 rounded text-sm bg-rose-100 text-rose-800";
+                feedback.innerHTML = `<strong>Incorrect.</strong> ${q.explanation}`;
+            }
+            setTimeout(() => { currentQ++; loadQuestion(); }, 5000);
+        }
+        loadQuestion();
+    </script>
+</body>
+</html>
