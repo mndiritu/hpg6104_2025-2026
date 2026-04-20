@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 8: Bias and Validity in Epidemiology</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style> 
+        body { font-family: 'Inter', sans-serif; } 
+        @media print { .no-print { display: none; } }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="max-w-5xl mx-auto my-8 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        
+        <!-- Header -->
+        <div class="bg-indigo-900 px-8 py-10 text-white">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h2 class="text-indigo-200 text-sm font-bold uppercase tracking-wide mb-2">HPG 6104 • Week 8</h2>
+                    <h1 class="text-3xl font-bold">Bias and Validity</h1>
+                    <p class="text-indigo-200 mt-2">The Systematic Foundations of Epidemiological Rigour</p>
+                </div>
+                <button onclick="window.print()" class="no-print bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors border border-white/20">
+                    Print / Save PDF
+                </button>
+            </div>
+        </div>
+
+        <div class="p-10 space-y-12">
+
+            <!-- 1. Bias vs Random Error -->
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-indigo-100 -mt-2 select-none">01</span>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">Bias (Systematic Error) vs. Random Error</h2>
+                        <div class="overflow-x-auto rounded-lg border border-slate-200 mb-4">
+                            <table class="w-full text-left text-sm border-collapse">
+                                <thead class="bg-slate-50 text-slate-700">
+                                    <tr>
+                                        <th class="p-4 border-b">Feature</th>
+                                        <th class="p-4 border-b font-bold text-rose-700">Bias (Systematic Error)</th>
+                                        <th class="p-4 border-b">Random Error</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="p-4 border-b font-semibold">Direction</td>
+                                        <td class="p-4 border-b">Consistent directional distortion.</td>
+                                        <td class="p-4 border-b">Non-directional, chance variation.</td>
+                                    </tr>
+                                    <tr class="bg-slate-50">
+                                        <td class="p-4 border-b font-semibold">Sample Size Effect</td>
+                                        <td class="p-4 border-b font-bold">NOT reduced by larger N.</td>
+                                        <td class="p-4 border-b">Reduced (averages out) as N increases.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-4 border-b font-semibold">Quantification</td>
+                                        <td class="p-4 border-b">Requires quantitative bias analysis.</td>
+                                        <td class="p-4 border-b">Confidence intervals, p-values.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="text-xs text-slate-500 italic">"A study of 100,000 participants can be more biased than a study of 500 if the design is flawed."</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Bias Taxonomy -->
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-indigo-100 -mt-2 select-none">02</span>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">The Bias Taxonomy</h2>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="p-5 bg-white border border-slate-200 rounded-xl shadow-sm">
+                                <h3 class="text-lg font-bold text-indigo-800 mb-2">Selection Bias</h3>
+                                <p class="text-sm text-slate-600 mb-3">Errors in who enters or remains in the study. The relationship in the sample differs from the source population.</p>
+                                <ul class="text-xs space-y-2 text-slate-700">
+                                    <li><strong>Healthy Worker Bias:</strong> Workers tend to be healthier than general pop.</li>
+                                    <li><strong>Berkson's Bias:</strong> Hospitalised controls are not representative.</li>
+                                    <li><strong>Attrition Bias:</strong> Non-random loss to follow-up.</li>
+                                </ul>
+                            </div>
+                            <div class="p-5 bg-white border border-slate-200 rounded-xl shadow-sm">
+                                <h3 class="text-lg font-bold text-emerald-800 mb-2">Information Bias</h3>
+                                <p class="text-sm text-slate-600 mb-3">Systematic errors in measuring exposure or outcome, leading to misclassification.</p>
+                                <ul class="text-xs space-y-2 text-slate-700">
+                                    <li><strong>Recall Bias:</strong> Differential memory search (classic in Case-Control).</li>
+                                    <li><strong>Observer Bias:</strong> Assessor knowledge affects measurement.</li>
+                                    <li><strong>Hawthorne Effect:</strong> Behavior changes because participants are watched.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Internal vs External Validity -->
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-indigo-100 -mt-2 select-none">03</span>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">Validity: Internal vs. External</h2>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h4 class="font-bold text-slate-800 mb-2">Internal Validity</h4>
+                                <p class="text-sm text-slate-600 leading-relaxed">Does the study accurately reflect the true association within the study population? <strong>Necessary precondition</strong> for any scientific inference.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 mb-2">External Validity (Generalisability)</h4>
+                                <p class="text-sm text-slate-600 leading-relaxed">Can the findings be applied to settings or contexts outside the original study? Critical for transportability of Western evidence to <strong>African public health contexts</strong>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. QBA & E-value -->
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-indigo-100 -mt-2 select-none">04</span>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">Quantitative Bias Analysis: The E-value</h2>
+                        <div class="bg-slate-800 text-white p-6 rounded-xl font-mono text-sm">
+                            <p class="text-slate-400 mb-2"># How strong would a hidden confounder need to be?</p>
+                            <p class="text-sky-400">E-value = RR + &radic;(RR * (RR - 1))</p>
+                        </div>
+                        <p class="text-sm text-slate-600 mt-4">If an observational study reports an OR of 2.0, the E-value is <strong>3.41</strong>. This means a hidden confounder needs an RR of at least 3.41 with both exposure and outcome to fully explain away the result.</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="bg-slate-100 px-8 py-6 border-t border-slate-200 flex justify-between items-center text-sm text-slate-500">
+            <a href="index.html" class="hover:text-indigo-600 transition-colors no-print">&larr; Back to Portal</a>
+            <span>© University of Nairobi</span>
+        </div>
+    </div>
+
+</body>
+</html>

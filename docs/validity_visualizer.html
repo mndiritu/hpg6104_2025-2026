@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validity Trade-off Visualizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Inter', sans-serif; } </style>
+</head>
+<body class="bg-slate-50 text-slate-800 p-4 md:p-8 min-h-screen">
+
+    <div class="max-w-4xl mx-auto">
+        <div class="mb-6 flex items-center justify-between">
+            <h1 class="text-2xl font-bold text-slate-900">Study Validity Visualizer</h1>
+            <a href="index.html" class="text-sm text-sky-600 hover:underline">Back to Portal</a>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-8">
+            <div class="p-6 bg-slate-800 text-white text-center">
+                <p class="text-slate-300 text-sm uppercase font-bold tracking-widest">Internal vs External Validity Trade-off</p>
+                <p class="mt-1 text-xs">Observe how choosing a design prioritises different types of validity.</p>
+            </div>
+
+            <div class="p-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+                    <button onclick="update('rct')" class="p-4 border-2 rounded-xl text-sm font-bold transition hover:bg-sky-50 border-slate-200" id="btn-rct">Explanatory RCT</button>
+                    <button onclick="update('pragmatic')" class="p-4 border-2 rounded-xl text-sm font-bold transition hover:bg-sky-50 border-slate-200" id="btn-pragmatic">Pragmatic RCT</button>
+                    <button onclick="update('cohort')" class="p-4 border-2 rounded-xl text-sm font-bold transition hover:bg-sky-50 border-slate-200" id="btn-cohort">Cohort Study</button>
+                    <button onclick="update('cross')" class="p-4 border-2 rounded-xl text-sm font-bold transition hover:bg-sky-50 border-slate-200" id="btn-cross">X-Sectional Survey</button>
+                </div>
+
+                <div class="space-y-12 max-w-2xl mx-auto">
+                    <!-- Internal -->
+                    <div>
+                        <div class="flex justify-between items-end mb-2">
+                            <span class="text-xs font-black uppercase text-indigo-700 tracking-tighter">Internal Validity (Precision/Control)</span>
+                            <span class="text-sm font-mono font-bold" id="val-int">50%</span>
+                        </div>
+                        <div class="w-full h-4 bg-slate-100 rounded-full overflow-hidden">
+                            <div id="bar-int" class="h-full bg-indigo-500 transition-all duration-700 ease-out" style="width: 50%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- External -->
+                    <div>
+                        <div class="flex justify-between items-end mb-2">
+                            <span class="text-xs font-black uppercase text-emerald-700 tracking-tighter">External Validity (Generalisability)</span>
+                            <span class="text-sm font-mono font-bold" id="val-ext">50%</span>
+                        </div>
+                        <div class="w-full h-4 bg-slate-100 rounded-full overflow-hidden">
+                            <div id="bar-ext" class="h-full bg-emerald-500 transition-all duration-700 ease-out" style="width: 50%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="desc-box" class="mt-12 p-6 bg-slate-50 border border-slate-200 rounded-xl hidden">
+                    <h4 class="font-bold text-slate-900 mb-1" id="desc-title"></h4>
+                    <p class="text-sm text-slate-600 italic" id="desc-text"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const data = {
+            rct: { int: 95, ext: 20, title: "Explanatory RCT", desc: "Maximises internal validity through strict inclusion criteria and rigid control. Generalisability is often limited because the study population is highly selected (the 'Gold Standard' for efficacy)." },
+            pragmatic: { int: 75, ext: 75, title: "Pragmatic RCT", desc: "Balances validity types by using broad eligibility criteria in real-world clinic settings. High internal validity via randomisation, but better generalisability." },
+            cohort: { int: 50, ext: 85, title: "Prospective Cohort", desc: "Excellent external validity as it observes people in real-world conditions. Internal validity is threatened by unmeasured confounding and non-random loss to follow-up." },
+            cross: { int: 20, ext: 95, title: "Cross-Sectional Survey", desc: "Provides high external validity (especially if using national samples like KDHS). However, internal validity is low for causal claims due to zero temporality." }
+        };
+
+        function update(type) {
+            const d = data[type];
+            document.getElementById('val-int').innerText = d.int + "%";
+            document.getElementById('bar-int').style.width = d.int + "%";
+            document.getElementById('val-ext').innerText = d.ext + "%";
+            document.getElementById('bar-ext').style.width = d.ext + "%";
+
+            document.getElementById('desc-title').innerText = d.title;
+            document.getElementById('desc-text').innerText = d.desc;
+            document.getElementById('desc-box').classList.remove('hidden');
+
+            document.querySelectorAll('button').forEach(b => b.classList.remove('border-indigo-600', 'bg-indigo-50', 'text-indigo-700'));
+            document.getElementById('btn-' + type).classList.add('border-indigo-600', 'bg-indigo-50', 'text-indigo-700');
+        }
+    </script>
+</body>
+</html>
