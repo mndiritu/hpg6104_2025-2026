@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 9: Modern Methods in Epidemiology</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style> 
+        body { font-family: 'Inter', sans-serif; } 
+        @media print { .no-print { display: none; } }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="max-w-5xl mx-auto my-8 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        
+        <!-- Header -->
+        <div class="bg-indigo-900 px-8 py-10 text-white">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h2 class="text-indigo-200 text-sm font-bold uppercase tracking-wide mb-2">HPG 6104 • Week 9</h2>
+                    <h1 class="text-3xl font-bold">Modern Methods in Epidemiology</h1>
+                    <p class="text-indigo-200 mt-2">Machine Learning, Prediction vs Causal Models, ML Cautions</p>
+                </div>
+                <button onclick="window.print()" class="no-print bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors border border-white/20">
+                    Print / Save PDF
+                </button>
+            </div>
+        </div>
+
+        <div class="p-10 space-y-12">
+
+            <!-- 1. The Great Divide -->
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-indigo-100 -mt-2 select-none">01</span>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">The Great Divide: Prediction vs Causal Models</h2>
+                        <p class="text-slate-600 mb-6">The most frequent category error in modern epidemiology is framing a prediction analysis, running a machine learning algorithm, and then drawing causal conclusions in the discussion section.</p>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div class="bg-white border-2 border-indigo-200 rounded-xl p-5 shadow-sm">
+                                <h3 class="text-lg font-bold text-indigo-800 mb-2">Prediction Models</h3>
+                                <p class="text-sm font-semibold text-slate-800 mb-2">"Who will develop the outcome?"</p>
+                                <p class="text-sm text-slate-600 mb-3">Concerned with <em>association</em>. Any variable that carries information about the outcome improves the model.</p>
+                                <ul class="text-xs space-y-1 text-slate-700 list-disc list-inside">
+                                    <li><strong>Goal:</strong> Minimise error on new data</li>
+                                    <li><strong>Methods:</strong> Random Forest, XGBoost</li>
+                                    <li><strong>Metrics:</strong> AUC-ROC, Brier Score, F1</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white border-2 border-emerald-200 rounded-xl p-5 shadow-sm">
+                                <h3 class="text-lg font-bold text-emerald-800 mb-2">Causal Models</h3>
+                                <p class="text-sm font-semibold text-slate-800 mb-2">"What happens if we change X?"</p>
+                                <p class="text-sm text-slate-600 mb-3">Concerned with <em>intervention</em>. We want to isolate the specific effect of an exposure on an outcome.</p>
+                                <ul class="text-xs space-y-1 text-slate-700 list-disc list-inside">
+                                    <li><strong>Goal:</strong> Unbiased effect estimate</li>
+                                    <li><strong>Methods:</strong> G-computation, IPTW, TMLE</li>
+                                    <li><strong>Metrics:</strong> ATE, Adjusted OR, 95% CI</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. The 5 Pitfalls -->
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-indigo-100 -mt-2 select-none">02</span>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">The 5 Machine Learning Cautions</h2>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
+                                <h4 class="font-bold text-slate-800">1. Overfitting</h4>
+                                <p class="text-sm text-slate-600">The model memorises training noise and fails on new data. A massive drop between training AUC (0.95) and validation AUC (0.70) is the classic red flag.</p>
+                            </div>
+                            <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
+                                <h4 class="font-bold text-slate-800">2. Confounding in Observational ML (Confounding by Indication)</h4>
+                                <p class="text-sm text-slate-600">ML models often show treatments (like statins or insulin) as highly predictive of bad outcomes. Why? Because only the sickest patients get the intensive drugs. A naive model learns this confounded association.</p>
+                            </div>
+                            <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
+                                <h4 class="font-bold text-slate-800">3. Algorithmic Bias</h4>
+                                <p class="text-sm text-slate-600">Models trained on historically biased data perpetuate those biases (e.g., pulse oximeters misreading on dark skin tones leading to delayed COVID-19 care for African populations).</p>
+                            </div>
+                            <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
+                                <h4 class="font-bold text-slate-800">4. Temporal & Distributional Shift</h4>
+                                <p class="text-sm text-slate-600">Model performance decays over time as guidelines or disease patterns change. An ML model requires a continuous monitoring and retraining plan.</p>
+                            </div>
+                            <div class="p-4 bg-rose-50 border border-rose-200 rounded-lg">
+                                <h4 class="font-bold text-rose-900">5. SHAP values &ne; Causal Effects</h4>
+                                <p class="text-sm text-rose-800">SHAP values provide <em>predictive explanations</em> (why the model guessed what it did). They are NOT causal effect estimates and cannot be used to plan public health interventions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Integration Frameworks -->
+            <section>
+                <div class="flex items-start gap-4">
+                    <span class="text-4xl font-bold text-indigo-100 -mt-2 select-none">03</span>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">Integrating ML and Causal Inference</h2>
+                        <p class="text-sm text-slate-600 mb-4">We can use ML's flexibility to improve causal estimation while keeping the rigour of causal DAGs.</p>
+                        <ul class="list-disc list-inside space-y-3 text-sm text-slate-700">
+                            <li><strong>Double Machine Learning (DML):</strong> Uses ML to non-parametrically estimate nuisance functions (exposure probability and outcome probability), then isolates the causal effect of X on Y from the residuals. Prevents regularisation bias.</li>
+                            <li><strong>Targeted Maximum Likelihood Estimation (TMLE):</strong> A doubly-robust method. Uses ensemble ML (Super Learner) for initial estimates, then updates it to yield consistent ATE estimates.</li>
+                            <li><strong>Causal Forests:</strong> Extends random forests to estimate <em>Heterogeneous Treatment Effects (CATE)</em>. Useful for Precision Public Health (finding which subgroups benefit most from an intervention).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="bg-slate-100 px-8 py-6 border-t border-slate-200 flex justify-between items-center text-sm text-slate-500">
+            <a href="index.html" class="hover:text-indigo-600 transition-colors no-print">&larr; Back to Portal</a>
+            <span>© 2026 University of Nairobi</span>
+        </div>
+    </div>
+
+</body>
+</html>
